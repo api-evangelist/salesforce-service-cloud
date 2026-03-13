@@ -1,0 +1,139 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "sfsc": "https://developer.salesforce.com/schemas/service-cloud/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Case": {
+      "@id": "sfsc:Case",
+      "@context": {
+        "caseNumber": "sfsc:caseNumber",
+        "subject": "sfsc:subject",
+        "description": "schema:description",
+        "status": "sfsc:status",
+        "priority": "sfsc:priority",
+        "origin": "sfsc:origin",
+        "type": "sfsc:caseType",
+        "contact": {
+          "@id": "sfsc:contact",
+          "@type": "@id"
+        },
+        "account": {
+          "@id": "sfsc:account",
+          "@type": "@id"
+        },
+        "owner": {
+          "@id": "sfsc:owner",
+          "@type": "@id"
+        },
+        "isClosed": {
+          "@id": "sfsc:isClosed",
+          "@type": "xsd:boolean"
+        },
+        "isEscalated": {
+          "@id": "sfsc:isEscalated",
+          "@type": "xsd:boolean"
+        },
+        "createdDate": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "closedDate": {
+          "@id": "sfsc:closedDate",
+          "@type": "xsd:dateTime"
+        },
+        "lastModifiedDate": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Contact": {
+      "@id": "sfsc:Contact",
+      "@context": {
+        "firstName": "schema:givenName",
+        "lastName": "schema:familyName",
+        "email": "schema:email",
+        "phone": "schema:telephone",
+        "account": {
+          "@id": "sfsc:account",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Account": {
+      "@id": "sfsc:Account",
+      "@context": {
+        "name": "schema:name",
+        "website": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "industry": "sfsc:industry",
+        "phone": "schema:telephone"
+      }
+    },
+
+    "KnowledgeArticle": {
+      "@id": "sfsc:KnowledgeArticle",
+      "@context": {
+        "title": "schema:headline",
+        "summary": "schema:abstract",
+        "articleBody": "schema:articleBody",
+        "articleNumber": "sfsc:articleNumber",
+        "publishStatus": "sfsc:publishStatus",
+        "urlName": "sfsc:urlName",
+        "language": "schema:inLanguage",
+        "createdDate": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "lastPublishedDate": {
+          "@id": "sfsc:lastPublishedDate",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "ChatSession": {
+      "@id": "sfsc:ChatSession",
+      "@context": {
+        "sessionId": "sfsc:sessionId",
+        "visitorName": "schema:name",
+        "status": "sfsc:status",
+        "startTime": {
+          "@id": "sfsc:startTime",
+          "@type": "xsd:dateTime"
+        },
+        "endTime": {
+          "@id": "sfsc:endTime",
+          "@type": "xsd:dateTime"
+        },
+        "agent": {
+          "@id": "sfsc:agent",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Agent": {
+      "@id": "sfsc:Agent",
+      "@context": {
+        "name": "schema:name",
+        "email": "schema:email",
+        "isAvailable": {
+          "@id": "sfsc:isAvailable",
+          "@type": "xsd:boolean"
+        },
+        "activeChats": {
+          "@id": "sfsc:activeChats",
+          "@type": "xsd:integer"
+        }
+      }
+    }
+  }
+}

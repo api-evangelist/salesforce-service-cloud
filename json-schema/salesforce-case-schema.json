@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://developer.salesforce.com/schemas/service-cloud/case.json",
+  "title": "Salesforce Service Cloud Case",
+  "description": "Schema for a Salesforce Service Cloud Case record representing a customer issue or support request.",
+  "type": "object",
+  "required": ["Subject"],
+  "properties": {
+    "Id": {
+      "type": "string",
+      "description": "Unique Salesforce record identifier (15 or 18 character)",
+      "pattern": "^[a-zA-Z0-9]{15,18}$"
+    },
+    "CaseNumber": {
+      "type": "string",
+      "description": "Auto-generated unique case number for display purposes"
+    },
+    "Subject": {
+      "type": "string",
+      "description": "Brief summary of the customer issue or request",
+      "maxLength": 255
+    },
+    "Description": {
+      "type": "string",
+      "description": "Detailed description of the customer issue",
+      "maxLength": 32000
+    },
+    "Status": {
+      "type": "string",
+      "description": "Current status in the case lifecycle",
+      "enum": ["New", "Working", "Escalated", "Closed"]
+    },
+    "Priority": {
+      "type": "string",
+      "description": "Priority level indicating urgency of the case",
+      "enum": ["High", "Medium", "Low"]
+    },
+    "Origin": {
+      "type": "string",
+      "description": "Channel through which the case was created",
+      "enum": ["Phone", "Email", "Web", "Chat"]
+    },
+    "Type": {
+      "type": "string",
+      "description": "Classification type of the case",
+      "enum": ["Mechanical", "Electrical", "Electronic", "Structural", "Other"]
+    },
+    "Reason": {
+      "type": "string",
+      "description": "Reason the case was created"
+    },
+    "ContactId": {
+      "type": "string",
+      "description": "Salesforce ID of the associated contact",
+      "pattern": "^[a-zA-Z0-9]{15,18}$"
+    },
+    "AccountId": {
+      "type": "string",
+      "description": "Salesforce ID of the associated account",
+      "pattern": "^[a-zA-Z0-9]{15,18}$"
+    },
+    "OwnerId": {
+      "type": "string",
+      "description": "Salesforce ID of the case owner (user or queue)",
+      "pattern": "^[a-zA-Z0-9]{15,18}$"
+    },
+    "ParentId": {
+      "type": "string",
+      "description": "Salesforce ID of the parent case for case hierarchies",
+      "pattern": "^[a-zA-Z0-9]{15,18}$"
+    },
+    "SuppliedName": {
+      "type": "string",
+      "description": "Name supplied by the customer when the case was created via web or email",
+      "maxLength": 80
+    },
+    "SuppliedEmail": {
+      "type": "string",
+      "description": "Email address supplied by the customer",
+      "format": "email",
+      "maxLength": 80
+    },
+    "SuppliedPhone": {
+      "type": "string",
+      "description": "Phone number supplied by the customer",
+      "maxLength": 40
+    },
+    "IsClosed": {
+      "type": "boolean",
+      "description": "Whether the case is in a closed status"
+    },
+    "IsEscalated": {
+      "type": "boolean",
+      "description": "Whether the case has been escalated"
+    },
+    "CreatedDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date and time the case was created"
+    },
+    "ClosedDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date and time the case was closed"
+    },
+    "LastModifiedDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date and time the case was last modified"
+    },
+    "SlaStartDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Start date for the SLA on this case"
+    },
+    "SlaExitDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date the case exited SLA tracking"
+    },
+    "Comments": {
+      "type": "string",
+      "description": "Internal case comments"
+    }
+  },
+  "$defs": {
+    "CaseComment": {
+      "type": "object",
+      "description": "A comment on a case record",
+      "required": ["Body"],
+      "properties": {
+        "Id": {
+          "type": "string",
+          "description": "Comment record ID"
+        },
+        "ParentId": {
+          "type": "string",
+          "description": "ID of the parent case"
+        },
+        "Body": {
+          "type": "string",
+          "description": "Text body of the comment"
+        },
+        "IsPublished": {
+          "type": "boolean",
+          "description": "Whether the comment is visible to the customer"
+        },
+        "CreatedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the comment was created"
+        },
+        "CreatedById": {
+          "type": "string",
+          "description": "ID of the user who created the comment"
+        }
+      }
+    }
+  }
+}

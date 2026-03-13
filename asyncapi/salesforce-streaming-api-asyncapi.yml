@@ -1,0 +1,215 @@
+asyncapi: 2.6.0
+info:
+  title: Salesforce Service Cloud Streaming API
+  description: >-
+    Real-time event streaming API for Salesforce Service Cloud using the
+    Bayeux protocol over CometD. Supports PushTopic events for sObject
+    changes, Platform Events for custom event-driven architectures, and
+    Change Data Capture events for tracking field-level changes to
+    service cloud records.
+  version: '59.0'
+  contact:
+    name: Salesforce Developer Support
+    url: https://developer.salesforce.com/support
+  license:
+    name: Salesforce Master Subscription Agreement
+    url: https://www.salesforce.com/company/legal/agreements/
+servers:
+  production:
+    url: https://{instance}.salesforce.com/cometd/59.0
+    protocol: https
+    description: Salesforce CometD streaming endpoint
+    security:
+      - oauth2: []
+    variables:
+      instance:
+        default: yourInstance
+        description: Your Salesforce instance identifier
+channels:
+  /topic/{pushTopicName}:
+    description: >-
+      PushTopic channel for receiving notifications when sObject records
+      matching a SOQL query are created, updated, deleted, or undeleted.
+    parameters:
+      pushTopicName:
+        description: Name of the PushTopic record defining the SOQL query
+        schema:
+          type: string
+    subscribe:
+      operationId: receivePushTopicEvent
+      summary: Receive PushTopic notifications
+      description: >-
+        Subscribe to receive real-time notifications when Case, Contact,
+        Account, or other service cloud sObject records are modified.
+      message:
+        $ref: '#/components/messages/PushTopicEvent'
+  /event/{platformEventName}__e:
+    description: >-
+      Platform Event channel for receiving custom event messages published
+      by Apex, Flow, or API triggers in the service cloud context.
+    parameters:
+      platformEventName:
+        description: API name of the Platform Event definition
+        schema:
+          type: string
+    subscribe:
+      operationId: receivePlatformEvent
+      summary: Receive Platform Event notifications
+      description: >-
+        Subscribe to custom platform events such as service case
+        escalations, SLA breach notifications, or agent assignment
+        changes.
+      message:
+        $ref: '#/components/messages/PlatformEvent'
+  /data/CaseChangeEvent:
+    description: >-
+      Change Data Capture channel for tracking field-level changes to
+      Case records in real-time.
+    subscribe:
+      operationId: receiveCaseChangeEvent
+      summary: Receive Case change events
+      description: >-
+        Subscribe to receive notifications whenever a Case record is
+        created, updated, deleted, or undeleted, including the specific
+        fields that changed.
+      message:
+        $ref: '#/components/messages/ChangeDataCaptureEvent'
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.salesforce.com/services/oauth2/authorize
+          tokenUrl: https://login.salesforce.com/services/oauth2/token
+          scopes:
+            streaming: Access Streaming API
+  messages:
+    PushTopicEvent:
+      name: PushTopicEvent
+      title: PushTopic Event Notification
+      summary: >-
+        Notification triggered when an sObject record matching the
+        PushTopic SOQL query is created, updated, deleted, or undeleted.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PushTopicPayload'
+    PlatformEvent:
+      name: PlatformEvent
+      title: Platform Event Message
+      summary: >-
+        Custom event message published through the Salesforce Platform
+        Events framework.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PlatformEventPayload'
+    ChangeDataCaptureEvent:
+      name: ChangeDataCaptureEvent
+      title: Change Data Capture Event
+      summary: >-
+        Event containing field-level change details for a modified
+        sObject record.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ChangeEventPayload'
+  schemas:
+    PushTopicPayload:
+      type: object
+      properties:
+        channel:
+          type: string
+          description: The channel the event was received on
+        data:
+          type: object
+          properties:
+            event:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Type of change
+                  enum:
+                    - created
+                    - updated
+                    - deleted
+                    - undeleted
+                createdDate:
+                  type: string
+                  format: date-time
+                  description: Timestamp of the event
+                replayId:
+                  type: integer
+                  description: Replay ID for event replay
+            sobject:
+              type: object
+              description: The sObject record data matching the PushTopic query
+              properties:
+                Id:
+                  type: string
+                  description: Record ID
+    PlatformEventPayload:
+      type: object
+      properties:
+        channel:
+          type: string
+          description: The platform event channel
+        data:
+          type: object
+          properties:
+            schema:
+              type: string
+              description: Schema ID of the event definition
+            payload:
+              type: object
+              description: Custom event payload fields
+            event:
+              type: object
+              properties:
+                replayId:
+                  type: integer
+                  description: Replay ID for event replay
+    ChangeEventPayload:
+      type: object
+      properties:
+        channel:
+          type: string
+          description: The Change Data Capture channel
+        data:
+          type: object
+          properties:
+            schema:
+              type: string
+              description: Schema ID
+            payload:
+              type: object
+              properties:
+                ChangeEventHeader:
+                  type: object
+                  properties:
+                    entityName:
+                      type: string
+                      description: sObject type name
+                    recordIds:
+                      type: array
+                      items:
+                        type: string
+                      description: IDs of changed records
+                    changeType:
+                      type: string
+                      description: Type of change
+                      enum:
+                        - CREATE
+                        - UPDATE
+                        - DELETE
+                        - UNDELETE
+                    changedFields:
+                      type: array
+                      items:
+                        type: string
+                      description: List of fields that changed
+                    commitTimestamp:
+                      type: integer
+                      description: Commit timestamp in epoch milliseconds
+                    commitUser:
+                      type: string
+                      description: User ID who made the change
