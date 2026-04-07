@@ -21,12 +21,12 @@ servers:
         default: d.la1-c1-ia4.salesforceliveagent.com
         description: Your Live Agent endpoint hostname
 tags:
-  - name: Sessions
-    description: Chat session lifecycle management
-  - name: Messages
-    description: Chat message operations
   - name: Availability
     description: Agent availability and routing
+  - name: Messages
+    description: Chat message operations
+  - name: Sessions
+    description: Chat session lifecycle management
   - name: Settings
     description: Chat deployment settings
 security:

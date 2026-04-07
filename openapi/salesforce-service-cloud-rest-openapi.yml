@@ -21,16 +21,14 @@ servers:
         default: yourInstance
         description: Your Salesforce instance identifier
 tags:
+  - name: Accounts
+    description: Operations for managing account records
   - name: Cases
     description: Operations for managing customer service cases
   - name: Contacts
     description: Operations for managing contact records
-  - name: Accounts
-    description: Operations for managing account records
   - name: Knowledge
     description: Operations for managing knowledge articles
-  - name: SObjects
-    description: Generic sObject operations
   - name: Query
     description: SOQL query operations
   - name: Search
