@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Salesforce Chat REST API
+  title: Salesforce Service Cloud Salesforce Chat REST API
   description: >-
     REST API for managing live chat sessions between agents and visitors
     in Salesforce Service Cloud. Enables initiating chat sessions,
@@ -35,7 +35,7 @@ paths:
   /System/SessionId:
     get:
       operationId: getSessionId
-      summary: Get a new session ID
+      summary: Salesforce Service Cloud Get a new session ID
       description: >-
         Generates a unique session ID and key to establish a new chat
         session. This must be the first request made for every new chat.
@@ -55,7 +55,7 @@ paths:
   /Chasitor/ChasitorInit:
     post:
       operationId: initiateChatSession
-      summary: Initiate a chat session
+      summary: Salesforce Service Cloud Initiate a chat session
       description: >-
         Initiates a new chat request from a visitor, placing them in the
         queue for an available agent.
@@ -77,7 +77,7 @@ paths:
   /System/Messages:
     get:
       operationId: getMessages
-      summary: Get chat messages
+      summary: Salesforce Service Cloud Get chat messages
       description: >-
         Returns all messages sent between agents and chat visitors
         during a chat session, including system messages and events.
@@ -98,7 +98,7 @@ paths:
   /Chasitor/ChatMessage:
     post:
       operationId: sendChatMessage
-      summary: Send a chat message
+      summary: Salesforce Service Cloud Send a chat message
       description: >-
         Sends a chat message from the visitor to the agent during an
         active chat session.
@@ -118,7 +118,7 @@ paths:
   /Visitor/Availability:
     get:
       operationId: checkAvailability
-      summary: Check agent availability
+      summary: Salesforce Service Cloud Check agent availability
       description: >-
         Indicates whether a chat button is available to receive new
         chat requests based on agent availability and routing rules.
@@ -153,7 +153,7 @@ paths:
   /Visitor/Settings:
     get:
       operationId: getSettings
-      summary: Get deployment settings
+      summary: Salesforce Service Cloud Get deployment settings
       description: >-
         Retrieves settings and configuration for a chat deployment,
         used to initialize the chat client.
@@ -182,7 +182,7 @@ paths:
   /Chasitor/ChatEnd:
     post:
       operationId: endChat
-      summary: End a chat session
+      summary: Salesforce Service Cloud End a chat session
       description: >-
         Ends the current chat session from the visitor side.
       tags:

@@ -42,7 +42,7 @@ paths:
   /sobjects/Case:
     get:
       operationId: getCaseInfo
-      summary: Get Case object metadata
+      summary: Salesforce Service Cloud Get Case object metadata
       description: >-
         Retrieves basic metadata and recently created cases for the Case
         sObject type.
@@ -59,7 +59,7 @@ paths:
           description: Unauthorized - invalid or expired session
     post:
       operationId: createCase
-      summary: Create a new case
+      summary: Salesforce Service Cloud Create a new case
       description: >-
         Creates a new case record with the specified field values for
         tracking customer service issues.
@@ -85,7 +85,7 @@ paths:
   /sobjects/Case/{caseId}:
     get:
       operationId: getCaseById
-      summary: Get a case by ID
+      summary: Salesforce Service Cloud Get a case by ID
       description: >-
         Retrieves a single case record by its Salesforce ID, including
         all accessible fields.
@@ -104,7 +104,7 @@ paths:
           description: Case not found
     patch:
       operationId: updateCase
-      summary: Update a case
+      summary: Salesforce Service Cloud Update a case
       description: >-
         Updates specified fields on an existing case record.
       tags:
@@ -126,7 +126,7 @@ paths:
           description: Case not found
     delete:
       operationId: deleteCase
-      summary: Delete a case
+      summary: Salesforce Service Cloud Delete a case
       description: >-
         Deletes a case record by its Salesforce ID.
       tags:
@@ -141,7 +141,7 @@ paths:
   /sobjects/Contact:
     get:
       operationId: getContactInfo
-      summary: Get Contact object metadata
+      summary: Salesforce Service Cloud Get Contact object metadata
       description: >-
         Retrieves basic metadata and recently created contacts for the
         Contact sObject type.
@@ -156,7 +156,7 @@ paths:
                 $ref: '#/components/schemas/SObjectBasicInfo'
     post:
       operationId: createContact
-      summary: Create a new contact
+      summary: Salesforce Service Cloud Create a new contact
       description: >-
         Creates a new contact record associated with customer service
         interactions.
@@ -178,7 +178,7 @@ paths:
   /sobjects/Account:
     get:
       operationId: getAccountInfo
-      summary: Get Account object metadata
+      summary: Salesforce Service Cloud Get Account object metadata
       description: >-
         Retrieves basic metadata and recently created accounts for the
         Account sObject type.
@@ -194,7 +194,7 @@ paths:
   /sobjects/Knowledge__kav:
     get:
       operationId: getKnowledgeArticleInfo
-      summary: Get Knowledge Article metadata
+      summary: Salesforce Service Cloud Get Knowledge Article metadata
       description: >-
         Retrieves metadata for knowledge articles used in the service
         knowledge base.
@@ -210,7 +210,7 @@ paths:
   /query:
     get:
       operationId: executeQuery
-      summary: Execute a SOQL query
+      summary: Salesforce Service Cloud Execute a SOQL query
       description: >-
         Executes a SOQL query against service cloud objects and returns
         matching records.
@@ -236,7 +236,7 @@ paths:
   /search:
     get:
       operationId: executeSearch
-      summary: Execute a SOSL search
+      summary: Salesforce Service Cloud Execute a SOSL search
       description: >-
         Executes a SOSL search across service cloud objects and returns
         matching records.
