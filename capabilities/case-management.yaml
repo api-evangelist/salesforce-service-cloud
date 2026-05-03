@@ -1,0 +1,273 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Salesforce Service Cloud Case Management"
+  description: >-
+    Unified workflow capability for customer service case management in
+    Salesforce Service Cloud. Combines REST API case CRUD with Live Agent
+    chat initiation for complete customer service resolution workflows.
+    Designed for service agents and customer service AI assistants.
+  tags:
+    - Salesforce
+    - Service Cloud
+    - Case Management
+    - Customer Service
+    - Help Desk
+    - Support
+    - CRM
+  created: "2026-05-02"
+  modified: "2026-05-02"
+
+binds:
+  - namespace: env
+    keys:
+      SALESFORCE_ACCESS_TOKEN: SALESFORCE_ACCESS_TOKEN
+      SALESFORCE_LIVE_AGENT_TOKEN: SALESFORCE_LIVE_AGENT_TOKEN
+
+capability:
+  consumes:
+    - import: salesforce-service-rest
+      location: ./shared/service-cloud-rest-api.yaml
+    - import: salesforce-live-agent
+      location: ./shared/live-agent-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: case-management-api
+      description: "Unified REST API for Salesforce Service Cloud case management."
+      resources:
+        - path: /v1/cases
+          name: cases
+          description: "Case lifecycle management"
+          operations:
+            - method: POST
+              name: create-case
+              description: "Create a new customer service case"
+              call: "salesforce-service-rest.create-case"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/cases/{caseId}
+          name: case
+          description: "Individual case operations"
+          operations:
+            - method: GET
+              name: get-case
+              description: "Get case details"
+              call: "salesforce-service-rest.get-case"
+              with:
+                caseId: "rest.caseId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PATCH
+              name: update-case
+              description: "Update case status or details"
+              call: "salesforce-service-rest.update-case"
+              with:
+                caseId: "rest.caseId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: delete-case
+              description: "Delete a case"
+              call: "salesforce-service-rest.delete-case"
+              with:
+                caseId: "rest.caseId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/contacts
+          name: contacts
+          description: "Contact management for service"
+          operations:
+            - method: POST
+              name: create-contact
+              description: "Create a contact"
+              call: "salesforce-service-rest.create-contact"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/contacts/{contactId}
+          name: contact
+          description: "Individual contact"
+          operations:
+            - method: GET
+              name: get-contact
+              description: "Get a contact"
+              call: "salesforce-service-rest.get-contact"
+              with:
+                contactId: "rest.contactId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/accounts/{accountId}
+          name: account
+          description: "Account for service context"
+          operations:
+            - method: GET
+              name: get-account
+              description: "Get account details"
+              call: "salesforce-service-rest.get-account"
+              with:
+                accountId: "rest.accountId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/query
+          name: query
+          description: "SOQL query"
+          operations:
+            - method: GET
+              name: query
+              description: "Query service data"
+              call: "salesforce-service-rest.query-service-data"
+              with:
+                q: "rest.q"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/chat/initiate
+          name: live-chat
+          description: "Live chat initiation"
+          operations:
+            - method: POST
+              name: initiate-live-chat
+              description: "Initiate a live chat session"
+              call: "salesforce-live-agent.initiate-chat"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: case-management-mcp
+      transport: http
+      description: "MCP server for AI-assisted Salesforce Service Cloud case management."
+      tools:
+        - name: get-case
+          description: "Get customer service case details by ID"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "salesforce-service-rest.get-case"
+          with:
+            caseId: "tools.caseId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-case
+          description: "Create a new customer service case with subject, description, priority, and contact"
+          hints:
+            readOnly: false
+            destructive: false
+          call: "salesforce-service-rest.create-case"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-case-status
+          description: "Update case status, priority, or description"
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "salesforce-service-rest.update-case"
+          with:
+            caseId: "tools.caseId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: close-case
+          description: "Close a customer service case by updating status to Closed"
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "salesforce-service-rest.update-case"
+          with:
+            caseId: "tools.caseId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: delete-case
+          description: "Delete a case record"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "salesforce-service-rest.delete-case"
+          with:
+            caseId: "tools.caseId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-contact
+          description: "Get contact details for a customer"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "salesforce-service-rest.get-contact"
+          with:
+            contactId: "tools.contactId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-contact
+          description: "Create a new contact record for a customer"
+          hints:
+            readOnly: false
+            destructive: false
+          call: "salesforce-service-rest.create-contact"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-account
+          description: "Get account information for service context"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "salesforce-service-rest.get-account"
+          with:
+            accountId: "tools.accountId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: query-cases
+          description: "Query cases using SOQL for filtering by status, priority, account, or agent"
+          hints:
+            readOnly: true
+            idempotent: true
+            openWorld: true
+          call: "salesforce-service-rest.query-service-data"
+          with:
+            q: "tools.q"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: initiate-live-chat
+          description: "Initiate a live chat session with a service agent"
+          hints:
+            readOnly: false
+            destructive: false
+          call: "salesforce-live-agent.initiate-chat"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: send-chat-message
+          description: "Send a message in an active live chat session"
+          hints:
+            readOnly: false
+            destructive: false
+          call: "salesforce-live-agent.send-chat-message"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: end-chat-session
+          description: "End an active live chat session"
+          hints:
+            readOnly: false
+            destructive: false
+          call: "salesforce-live-agent.end-chat-session"
+          outputParameters:
+            - type: object
+              mapping: "$."

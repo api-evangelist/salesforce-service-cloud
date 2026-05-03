@@ -1,0 +1,139 @@
+{
+  "title": "Salesforce Service Cloud Case Structure",
+  "description": "Structural documentation for the Salesforce Case sObject — the core customer service ticket record.",
+  "resource": "Case",
+  "baseUri": "https://{instance}.salesforce.com/services/data/v59.0/sobjects/Case",
+  "fields": [
+    {
+      "name": "Id",
+      "type": "string",
+      "required": true,
+      "description": "Unique Salesforce record ID",
+      "example": "5001x000003GYkJAAW"
+    },
+    {
+      "name": "CaseNumber",
+      "type": "string",
+      "required": false,
+      "description": "Auto-generated case number displayed to customers",
+      "example": "00001234"
+    },
+    {
+      "name": "Subject",
+      "type": "string",
+      "required": false,
+      "description": "Brief title of the issue",
+      "example": "Cannot log in to account"
+    },
+    {
+      "name": "Description",
+      "type": "string",
+      "required": false,
+      "description": "Detailed description of the customer issue"
+    },
+    {
+      "name": "Status",
+      "type": "string",
+      "required": false,
+      "description": "Current case resolution status",
+      "enum": ["New", "Working", "Escalated", "Closed"],
+      "example": "New"
+    },
+    {
+      "name": "Priority",
+      "type": "string",
+      "required": false,
+      "description": "Case urgency level",
+      "enum": ["Low", "Medium", "High"],
+      "example": "Medium"
+    },
+    {
+      "name": "Origin",
+      "type": "string",
+      "required": false,
+      "description": "Channel through which the case was submitted",
+      "example": "Web"
+    },
+    {
+      "name": "Type",
+      "type": "string",
+      "required": false,
+      "description": "Category of service request",
+      "example": "Question"
+    },
+    {
+      "name": "AccountId",
+      "type": "string",
+      "required": false,
+      "description": "Salesforce ID of the associated Account",
+      "example": "001xx000003GYkJAAW"
+    },
+    {
+      "name": "ContactId",
+      "type": "string",
+      "required": false,
+      "description": "Salesforce ID of the associated Contact",
+      "example": "003xx000003GYkJAAW"
+    },
+    {
+      "name": "OwnerId",
+      "type": "string",
+      "required": false,
+      "description": "Salesforce ID of the agent or queue owning the case",
+      "example": "005xx000001gN1aAAE"
+    },
+    {
+      "name": "IsEscalated",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether the case has been escalated",
+      "example": false
+    },
+    {
+      "name": "IsClosed",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether the case is in a closed status",
+      "example": false
+    },
+    {
+      "name": "CreatedDate",
+      "type": "datetime",
+      "required": false,
+      "description": "ISO 8601 creation timestamp",
+      "example": "2024-06-01T09:00:00.000Z"
+    },
+    {
+      "name": "ClosedDate",
+      "type": "datetime",
+      "required": false,
+      "description": "ISO 8601 timestamp when case was closed"
+    },
+    {
+      "name": "LastModifiedDate",
+      "type": "datetime",
+      "required": false,
+      "description": "ISO 8601 last modification timestamp"
+    }
+  ],
+  "relationships": [
+    {
+      "name": "CaseComments",
+      "description": "Comments and notes on the case",
+      "type": "hasMany",
+      "resource": "CaseComment"
+    },
+    {
+      "name": "EmailMessages",
+      "description": "Email correspondence for the case",
+      "type": "hasMany",
+      "resource": "EmailMessage"
+    },
+    {
+      "name": "AttachedContentDocuments",
+      "description": "Files attached to the case",
+      "type": "hasMany",
+      "resource": "ContentDocument"
+    }
+  ]
+}

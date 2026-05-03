@@ -1,0 +1,56 @@
+{
+  "title": "Query Open Cases Example",
+  "description": "Example SOQL query to retrieve open high-priority cases for a service agent",
+  "operation": "queryServiceData",
+  "method": "GET",
+  "path": "/query",
+  "request": {
+    "queryParameters": {
+      "q": "SELECT Id, CaseNumber, Subject, Status, Priority, Account.Name, Contact.Name, CreatedDate FROM Case WHERE IsClosed = false AND Priority = 'High' ORDER BY CreatedDate ASC LIMIT 20"
+    },
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Accept": "application/json"
+    }
+  },
+  "response": {
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "totalSize": 2,
+      "done": true,
+      "records": [
+        {
+          "Id": "5001x000003GYkJAAW",
+          "CaseNumber": "00001234",
+          "Subject": "Cannot log in to account after password reset",
+          "Status": "New",
+          "Priority": "High",
+          "Account": {
+            "Name": "Acme Corporation"
+          },
+          "Contact": {
+            "Name": "Jane Smith"
+          },
+          "CreatedDate": "2024-06-01T09:00:00.000Z"
+        },
+        {
+          "Id": "5001x000003HZlKBBX",
+          "CaseNumber": "00001235",
+          "Subject": "API integration returning 500 errors",
+          "Status": "Working",
+          "Priority": "High",
+          "Account": {
+            "Name": "TechStart Inc"
+          },
+          "Contact": {
+            "Name": "John Developer"
+          },
+          "CreatedDate": "2024-06-01T11:30:00.000Z"
+        }
+      ]
+    }
+  }
+}

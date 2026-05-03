@@ -231,10 +231,17 @@ common:
     url: https://stackoverflow.com/questions/tagged/salesforce
   - type: YouTube
     url: https://www.youtube.com/@SalesforceDevelopers
-  - type: JSONSchema
+  - type: JSON Schema
     url: json-schema/salesforce-case-schema.json
-  - type: JSON-LD
+    title: Case Schema
+  - type: JSON-LD Context
     url: json-ld/salesforce-service-cloud-context.jsonld
+  - type: Spectral Rules
+    url: rules/salesforce-service-cloud-rules.yml
+  - type: Capabilities
+    url: capabilities/case-management.yaml
+  - type: Vocabulary
+    url: vocabulary/salesforce-service-cloud-vocabulary.yml
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

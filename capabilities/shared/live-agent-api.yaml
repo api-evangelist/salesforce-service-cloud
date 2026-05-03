@@ -1,0 +1,159 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Salesforce Live Agent REST API"
+  description: "API for managing live chat sessions and agent interactions in Salesforce Service Cloud."
+  tags:
+    - Salesforce
+    - Service Cloud
+    - Live Chat
+    - Agent
+    - Real-Time Support
+  created: "2026-05-02"
+  modified: "2026-05-02"
+
+binds:
+  - namespace: env
+    keys:
+      SALESFORCE_LIVE_AGENT_TOKEN: SALESFORCE_LIVE_AGENT_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: salesforce-live-agent
+      baseUri: https://{instance}.salesforce.com/chat/rest
+      description: "Salesforce Live Agent REST API"
+      authentication:
+        type: apikey
+        key: X-LIVEAGENT-API-VERSION
+        value: "{{SALESFORCE_LIVE_AGENT_TOKEN}}"
+        placement: header
+      resources:
+        - name: visitor-session
+          path: /System/SessionId
+          description: "Initialize visitor session"
+          operations:
+            - name: create-visitor-session
+              method: GET
+              description: "Initialize a new visitor session for live chat"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: chat-request
+          path: /Chasitor/ChasitorInit
+          description: "Initiate chat request"
+          operations:
+            - name: initiate-chat
+              method: POST
+              description: "Initiate a live chat request with an agent"
+              body:
+                type: json
+                data:
+                  organizationId: "{{tools.organizationId}}"
+                  deploymentId: "{{tools.deploymentId}}"
+                  buttonId: "{{tools.buttonId}}"
+                  sessionId: "{{tools.sessionId}}"
+                  visitorName: "{{tools.visitorName}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: chat-messages
+          path: /Chasitor/ChatMessage
+          description: "Chat message management"
+          operations:
+            - name: send-chat-message
+              method: POST
+              description: "Send a message in the live chat session"
+              body:
+                type: json
+                data:
+                  text: "{{tools.text}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: chat-end
+          path: /Chasitor/ChatEnd
+          description: "End chat session"
+          operations:
+            - name: end-chat-session
+              method: POST
+              description: "End the live chat session"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8101
+      namespace: live-agent-rest
+      resources:
+        - path: /v1/chat/sessions
+          name: chat-sessions
+          operations:
+            - method: GET
+              name: create-visitor-session
+              description: "Initialize visitor session"
+              call: "salesforce-live-agent.create-visitor-session"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/chat/initiate
+          name: chat-initiate
+          operations:
+            - method: POST
+              name: initiate-chat
+              description: "Start a live chat"
+              call: "salesforce-live-agent.initiate-chat"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9101
+      namespace: live-agent-mcp
+      transport: http
+      tools:
+        - name: create-visitor-session
+          description: "Initialize a visitor session for live chat"
+          hints:
+            readOnly: false
+            destructive: false
+          call: "salesforce-live-agent.create-visitor-session"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: initiate-live-chat
+          description: "Initiate a live chat request with a service agent"
+          hints:
+            readOnly: false
+            destructive: false
+          call: "salesforce-live-agent.initiate-chat"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: send-chat-message
+          description: "Send a message in an active live chat session"
+          hints:
+            readOnly: false
+            destructive: false
+          call: "salesforce-live-agent.send-chat-message"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: end-chat-session
+          description: "End an active live chat session"
+          hints:
+            readOnly: false
+            destructive: false
+          call: "salesforce-live-agent.end-chat-session"
+          outputParameters:
+            - type: object
+              mapping: "$."

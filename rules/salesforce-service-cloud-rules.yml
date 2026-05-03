@@ -1,0 +1,84 @@
+rules:
+  salesforce-svc-operation-summary-title-case:
+    description: Operation summaries must use Title Case
+    message: "Summary '{{value}}' should use Title Case"
+    severity: warn
+    given: "$.paths[*][*].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z]"
+
+  salesforce-svc-operation-id-camel-case:
+    description: OperationIds must use camelCase
+    message: "OperationId '{{value}}' must use camelCase"
+    severity: warn
+    given: "$.paths[*][*].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  salesforce-svc-tags-title-case:
+    description: All tags must use Title Case
+    severity: warn
+    given: "$.paths[*][*].tags[*]"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z]"
+
+  salesforce-svc-response-200-description:
+    description: All 200 responses must have a description
+    severity: error
+    given: "$.paths[*][*].responses['200']"
+    then:
+      field: description
+      function: truthy
+
+  salesforce-svc-contact-required:
+    description: API info must include contact details
+    severity: error
+    given: "$.info"
+    then:
+      field: contact
+      function: truthy
+
+  salesforce-svc-version-required:
+    description: API info must include a version
+    severity: error
+    given: "$.info"
+    then:
+      field: version
+      function: truthy
+
+  salesforce-svc-servers-required:
+    description: API must define at least one server
+    severity: error
+    given: "$"
+    then:
+      field: servers
+      function: truthy
+
+  salesforce-svc-security-defined:
+    description: API must define security requirements
+    severity: error
+    given: "$"
+    then:
+      field: security
+      function: truthy
+
+  salesforce-svc-case-status-documented:
+    description: Case status values should be documented in schema
+    message: "Case Status field should define enum values"
+    severity: warn
+    given: "$.components.schemas.Case.properties.Status"
+    then:
+      function: truthy
+
+  salesforce-svc-case-id-parameter-defined:
+    description: Case ID path parameters should be defined in components
+    severity: info
+    given: "$.components.parameters"
+    then:
+      function: truthy

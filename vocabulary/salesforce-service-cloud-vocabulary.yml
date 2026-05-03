@@ -1,0 +1,210 @@
+name: Salesforce Service Cloud Vocabulary
+description: >-
+  Domain vocabulary and taxonomy for Salesforce Service Cloud, covering
+  customer service processes, case management, omni-channel routing,
+  knowledge management, and AI-powered service concepts.
+version: "1.0"
+created: "2026-05-02"
+modified: "2026-05-02"
+source: https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/
+
+terms:
+  - term: Case
+    definition: >-
+      A Salesforce standard object representing a customer service request,
+      inquiry, complaint, or issue. Cases track the full service lifecycle
+      from submission through resolution and closure.
+    aliases:
+      - Ticket
+      - Service Request
+      - Support Case
+    related:
+      - Case Comment
+      - Case Status
+      - Entitlement
+
+  - term: Case Status
+    definition: >-
+      The current lifecycle state of a customer service case. Common statuses
+      include New (just created), Working (agent assigned), Escalated (elevated
+      priority), and Closed (resolved).
+    values:
+      - New
+      - Working
+      - Escalated
+      - Closed
+    related:
+      - Case
+      - Priority
+
+  - term: Priority
+    definition: >-
+      An urgency rating assigned to a case that determines handling speed
+      and SLA requirements. Standard priorities are Low, Medium, and High.
+    values:
+      - Low
+      - Medium
+      - High
+    related:
+      - Case
+      - SLA
+      - Entitlement
+
+  - term: Case Origin
+    definition: >-
+      The channel through which a case was submitted. Common origins include
+      Web (online form), Email, Phone, Chat, and Social. Used for routing
+      and reporting.
+    values:
+      - Web
+      - Email
+      - Phone
+      - Chat
+      - Social
+    related:
+      - Omni-Channel
+      - Case
+
+  - term: Entitlement
+    definition: >-
+      A Salesforce feature for defining, enforcing, and tracking service
+      levels and customer support terms. Entitlements specify response times,
+      business hours, and service contracts.
+    related:
+      - SLA
+      - Case
+      - Milestone
+
+  - term: SLA
+    definition: >-
+      Service Level Agreement — a contractual commitment about response and
+      resolution time for customer cases. Enforced through Entitlements and
+      Milestones in Salesforce Service Cloud.
+    aliases:
+      - Service Level Agreement
+    related:
+      - Entitlement
+      - Milestone
+
+  - term: Omni-Channel
+    definition: >-
+      A Salesforce feature for routing work items (cases, chats, calls,
+      emails) to the most available and appropriately skilled service agent.
+      Supports multiple channels simultaneously.
+    related:
+      - Live Agent
+      - Routing
+
+  - term: Live Agent
+    definition: >-
+      The Salesforce real-time chat platform for customer-to-agent web chat
+      interactions. Provides the Live Agent REST API for programmatic session
+      management and chat message handling.
+    aliases:
+      - Chat
+      - Live Chat
+    related:
+      - Omni-Channel
+      - Chat Session
+
+  - term: Einstein Bot
+    definition: >-
+      An AI-powered chatbot in Salesforce that can handle customer inquiries
+      automatically before escalating to human agents. Uses natural language
+      understanding to interpret customer intent.
+    aliases:
+      - Chatbot
+      - AI Bot
+    related:
+      - Agentforce
+      - Live Agent
+
+  - term: Agentforce
+    definition: >-
+      Salesforce's AI agent platform for building and deploying autonomous
+      AI service agents that can handle customer interactions, manage cases,
+      and escalate to human agents when needed.
+    related:
+      - Einstein Bot
+      - Service Agent
+
+  - term: Knowledge Article
+    definition: >-
+      A documented solution, FAQ, or guide in Salesforce Knowledge that
+      service agents and customers can reference to resolve issues. Articles
+      can be surfaced automatically based on case content.
+    related:
+      - Case Deflection
+      - Knowledge Base
+
+  - term: Case Deflection
+    definition: >-
+      Resolving a customer inquiry through self-service (Knowledge articles,
+      chatbot) without requiring agent intervention, reducing case volume
+      and support costs.
+    related:
+      - Knowledge Article
+      - Einstein Bot
+
+  - term: Escalation
+    definition: >-
+      The process of raising case priority or transferring a case to a
+      more experienced agent or manager when an issue cannot be resolved
+      at the current tier.
+    related:
+      - Case Status
+      - Priority
+
+  - term: Case Comment
+    definition: >-
+      A note or update added to a Case record. Comments can be public
+      (visible to the customer) or private (internal only). Used for
+      tracking case progress and communication.
+    related:
+      - Case
+
+  - term: Service Console
+    definition: >-
+      The Salesforce Service Cloud user interface for agents, combining
+      cases, knowledge, contacts, and omni-channel into a single workspace
+      for efficient service delivery.
+    related:
+      - Case
+      - Omni-Channel
+
+categories:
+  - name: Case Management
+    description: Core case lifecycle and management concepts
+    terms:
+      - Case
+      - Case Status
+      - Priority
+      - Case Origin
+      - Case Comment
+      - Escalation
+
+  - name: Service Level Management
+    description: SLA and entitlement tracking
+    terms:
+      - Entitlement
+      - SLA
+
+  - name: Channels
+    description: Customer communication channels
+    terms:
+      - Live Agent
+      - Omni-Channel
+      - Case Origin
+
+  - name: AI and Automation
+    description: Intelligent service automation
+    terms:
+      - Einstein Bot
+      - Agentforce
+      - Case Deflection
+
+  - name: Knowledge
+    description: Self-service and knowledge management
+    terms:
+      - Knowledge Article
+      - Case Deflection

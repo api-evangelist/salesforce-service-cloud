@@ -1,0 +1,34 @@
+{
+  "title": "Create Case Example",
+  "description": "Example request and response for creating a customer service case in Salesforce Service Cloud",
+  "operation": "createCase",
+  "method": "POST",
+  "path": "/sobjects/Case",
+  "request": {
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "Subject": "Cannot log in to account after password reset",
+      "Description": "Customer attempted to reset password using the forgot password link but is still unable to log in. Error message: 'Invalid credentials'. This has been ongoing for 2 days.",
+      "Status": "New",
+      "Priority": "High",
+      "Origin": "Web",
+      "Type": "Problem",
+      "AccountId": "001xx000003GYkJAAW",
+      "ContactId": "003xx000003GYkJAAW"
+    }
+  },
+  "response": {
+    "statusCode": 201,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "id": "5001x000003GYkJAAW",
+      "success": true,
+      "errors": []
+    }
+  }
+}
