@@ -4,133 +4,45 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Salesforce Service Cloud
 providerId: salesforce-service-cloud
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
-  - Case Management
-  - CRM
-  - Customer Service
-  - Help Desk
-  - Support
-  - Ticketing
-  - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Salesforce Service Cloud API surface. Captures
-  per-tier quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values
-  to be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+- Case Management
+- Customer Service
+- CRM
+- Salesforce
+- Service Cloud
+- Rate Limiting
+description: Rate-limits artifact for Salesforce Service Cloud. Trimmed to a single umbrella entry pending
+  manual reconciliation. Salesforce publishes per-edition pricing on its product pages, but those pages
+  are not retrievable via automated fetch (HTTP 403). All editions are sold via Salesforce Sales; API
+  access is included with the underlying CRM license rather than priced as a discrete API SKU. Treat this
+  artifact as a contact-sales placeholder until pricing pages can be reconciled manually.
+sources:
+- https://www.salesforce.com/service/pricing/
 responseCodes:
   throttled: 429
   quotaExceeded: 429
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Salesforce Service Cloud REST API
-      - Salesforce Service Cloud SOAP API
-      - Service Cloud Streaming API
-      - Live Agent REST API
-      - Knowledge API
-      - Einstein Bot API
-      - Omni-Channel API
-      - Service Cloud Voice Telephony Integration API
-      - Service Cloud Voice for Partner Telephony API
-      - Agentforce Service Agent API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Salesforce Service Cloud REST API
-      - Salesforce Service Cloud SOAP API
-      - Service Cloud Streaming API
-      - Live Agent REST API
-      - Knowledge API
-      - Einstein Bot API
-      - Omni-Channel API
-      - Service Cloud Voice Telephony Integration API
-      - Service Cloud Voice for Partner Telephony API
-      - Agentforce Service Agent API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Salesforce Service Cloud REST API
-      - Salesforce Service Cloud SOAP API
-      - Service Cloud Streaming API
-      - Live Agent REST API
-      - Knowledge API
-      - Einstein Bot API
-      - Omni-Channel API
-      - Service Cloud Voice Telephony Integration API
-      - Service Cloud Voice for Partner Telephony API
-      - Agentforce Service Agent API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Salesforce Service Cloud REST API
-      - Salesforce Service Cloud SOAP API
-      - Service Cloud Streaming API
-      - Live Agent REST API
-      - Knowledge API
-      - Einstein Bot API
-      - Omni-Channel API
-      - Service Cloud Voice Telephony Integration API
-      - Service Cloud Voice for Partner Telephony API
-      - Agentforce Service Agent API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Salesforce Service Cloud REST API
-      - Salesforce Service Cloud SOAP API
-      - Service Cloud Streaming API
-      - Live Agent REST API
-      - Knowledge API
-      - Einstein Bot API
-      - Omni-Channel API
-      - Service Cloud Voice Telephony Integration API
-      - Service Cloud Voice for Partner Telephony API
-      - Agentforce Service Agent API
+- name: Per-edition 24-hour API request limit
+  scope: org/edition
+  metric: varies
+  limit: varies by Salesforce edition (Developer / Professional / Enterprise / Performance / Unlimited)
+    and licensed user count; see Salesforce App Limits Cheatsheet
+  notes: Salesforce documents per-edition 24-hour API request totals plus add-on packs; the public docs
+    page is gated and returned no scrape-able content.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
-    url: https://apievangelist.com
+- name: Per-Edition Quota
+  description: Salesforce APIs share a single org-wide 24-hour quota driven by edition and licensed user
+    count, with API Request Limits visible in Setup > System Overview.
+- name: Concurrent API Request Limit
+  description: Salesforce caps concurrent long-running API requests per org; specific numbers are documented
+    in the Salesforce App Limits Cheatsheet.
+- name: Backoff Strategy
+  description: When a 429 is returned, clients should honor Retry-After and apply exponential backoff
+    with jitter.
+notes: Salesforce publishes per-edition pricing on its product pages, but those pages are not retrievable
+  via automated fetch (HTTP 403). All editions are sold via Salesforce Sales; API access is included with
+  the underlying CRM license rather than priced as a discrete API SKU. Treat this artifact as a contact-sales
+  placeholder until pricing pages can be reconciled manually.
