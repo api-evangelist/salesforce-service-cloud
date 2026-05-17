@@ -34,7 +34,7 @@ apis:
         url: https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_oauth_and_connected_apps.htm
       - type: Reference
         url: https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_list.htm
-      - type: Getting Started
+      - type: GettingStarted
         url: https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/quickstart.htm
       - type: OpenAPI
         url: openapi/salesforce-service-cloud-rest-openapi.yml
@@ -84,7 +84,7 @@ apis:
     properties:
       - type: Documentation
         url: https://developer.salesforce.com/docs/atlas.en-us.live_agent_rest.meta/live_agent_rest/
-      - type: API Reference
+      - type: APIReference
         url: https://developer.salesforce.com/docs/atlas.en-us.live_agent_rest.meta/live_agent_rest/live_agent_rest_API_requests.htm
       - type: OpenAPI
         url: openapi/salesforce-live-agent-openapi.yml
@@ -101,7 +101,7 @@ apis:
     properties:
       - type: Documentation
         url: https://developer.salesforce.com/docs/atlas.en-us.knowledge_dev.meta/knowledge_dev/
-      - type: API Reference
+      - type: APIReference
         url: https://developer.salesforce.com/docs/atlas.en-us.knowledge_dev.meta/knowledge_dev/knowledge_development.htm
   - name: Einstein Bot API
     description: >-
@@ -172,7 +172,7 @@ apis:
     properties:
       - type: Documentation
         url: https://developer.salesforce.com/docs/atlas.en-us.voice_pt_developer_guide.meta/voice_pt_developer_guide/voice_pt_dev_guide.htm
-      - type: Getting Started
+      - type: GettingStarted
         url: https://developer.salesforce.com/docs/atlas.en-us.voice_pt_developer_guide.meta/voice_pt_developer_guide/voice_pt_connector_api_get_started.htm
   - name: Agentforce Service Agent API
     description: >-
@@ -192,14 +192,14 @@ apis:
         url: https://developer.salesforce.com/docs/einstein/genai/guide/get-started-agents.html
       - type: Reference
         url: https://developer.salesforce.com/docs/einstein/genai/guide/agent-api.html
-      - type: Getting Started
+      - type: GettingStarted
         url: https://developer.salesforce.com/docs/einstein/genai/guide/agent-api-get-started.html
 common:
-  - type: Getting Started
+  - type: GettingStarted
     url: https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/quickstart.htm
   - type: Authentication
     url: https://help.salesforce.com/articleView?id=sf.remoteaccess_authenticate.htm
-  - type: Rate Limits
+  - type: RateLimits
     url: https://developer.salesforce.com/docs/atlas.en-us.salesforce_app_limits_cheatsheet.meta/salesforce_app_limits_cheatsheet/
   - type: Developer Portal
     url: https://developer.salesforce.com/
@@ -213,21 +213,21 @@ common:
     url: https://trailblazercommunity.salesforce.com/
   - type: Pricing
     url: https://www.salesforce.com/service-cloud/pricing/
-  - type: Terms of Service
+  - type: TermsOfService
     url: https://www.salesforce.com/company/legal/agreements/
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://www.salesforce.com/company/privacy/
   - type: Blog
     url: https://developer.salesforce.com/blogs
-  - type: Sign Up
+  - type: SignUp
     url: https://developer.salesforce.com/signup
   - type: Login
     url: https://login.salesforce.com/
   - type: Console
     url: https://developer.salesforce.com/developer-centers/service-cloud
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/developerforce
-  - type: Stack Overflow
+  - type: StackOverflow
     url: https://stackoverflow.com/questions/tagged/salesforce
   - type: YouTube
     url: https://www.youtube.com/@SalesforceDevelopers
