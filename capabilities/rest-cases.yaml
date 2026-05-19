@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Salesforce Service Cloud REST API — Cases
+  description: 'Salesforce Service Cloud REST API — Cases. 5 operations. Lead operation: Salesforce Service Cloud Get Case
+    object metadata. Self-contained Naftiko capability covering one Salesforce Service Cloud business surface.'
+  tags:
+  - Salesforce Service Cloud
+  - Cases
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SALESFORCE_SERVICE_CLOUD_API_KEY: SALESFORCE_SERVICE_CLOUD_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-cases
+    baseUri: https://{instance}.salesforce.com/services/data/v59.0
+    description: Salesforce Service Cloud REST API — Cases business capability. Self-contained, no shared references.
+    resources:
+    - name: sobjects-Case
+      path: /sobjects/Case
+      operations:
+      - name: getcaseinfo
+        method: GET
+        description: Salesforce Service Cloud Get Case object metadata
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createcase
+        method: POST
+        description: Salesforce Service Cloud Create a new case
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: sobjects-Case-caseId
+      path: /sobjects/Case/{caseId}
+      operations:
+      - name: getcasebyid
+        method: GET
+        description: Salesforce Service Cloud Get a case by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatecase
+        method: PATCH
+        description: Salesforce Service Cloud Update a case
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletecase
+        method: DELETE
+        description: Salesforce Service Cloud Delete a case
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SALESFORCE_SERVICE_CLOUD_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: rest-cases-rest
+    port: 8080
+    description: REST adapter for Salesforce Service Cloud REST API — Cases. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/sobjects/case
+      name: sobjects-case
+      description: REST surface for sobjects-Case.
+      operations:
+      - method: GET
+        name: getcaseinfo
+        description: Salesforce Service Cloud Get Case object metadata
+        call: rest-cases.getcaseinfo
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcase
+        description: Salesforce Service Cloud Create a new case
+        call: rest-cases.createcase
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/sobjects/case/{caseid}
+      name: sobjects-case-caseid
+      description: REST surface for sobjects-Case-caseId.
+      operations:
+      - method: GET
+        name: getcasebyid
+        description: Salesforce Service Cloud Get a case by ID
+        call: rest-cases.getcasebyid
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatecase
+        description: Salesforce Service Cloud Update a case
+        call: rest-cases.updatecase
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletecase
+        description: Salesforce Service Cloud Delete a case
+        call: rest-cases.deletecase
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-cases-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Salesforce Service Cloud REST API — Cases. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: salesforce-service-cloud-get-case
+      description: Salesforce Service Cloud Get Case object metadata
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-cases.getcaseinfo
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: salesforce-service-cloud-create-new
+      description: Salesforce Service Cloud Create a new case
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-cases.createcase
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: salesforce-service-cloud-get-case-2
+      description: Salesforce Service Cloud Get a case by ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-cases.getcasebyid
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: salesforce-service-cloud-update-case
+      description: Salesforce Service Cloud Update a case
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-cases.updatecase
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: salesforce-service-cloud-delete-case
+      description: Salesforce Service Cloud Delete a case
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-cases.deletecase
+      outputParameters:
+      - type: object
+        mapping: $.

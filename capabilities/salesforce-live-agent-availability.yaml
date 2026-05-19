@@ -1,0 +1,98 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Salesforce Service Cloud Salesforce Chat REST API — Availability
+  description: 'Salesforce Service Cloud Salesforce Chat REST API — Availability. 1 operations. Lead operation: Salesforce
+    Service Cloud Check agent availability. Self-contained Naftiko capability covering one Salesforce Service Cloud business
+    surface.'
+  tags:
+  - Salesforce Service Cloud
+  - Availability
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SALESFORCE_SERVICE_CLOUD_API_KEY: SALESFORCE_SERVICE_CLOUD_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: salesforce-live-agent-availability
+    baseUri: https://{hostname}/chat/rest
+    description: Salesforce Service Cloud Salesforce Chat REST API — Availability business capability. Self-contained, no
+      shared references.
+    resources:
+    - name: Visitor-Availability
+      path: /Visitor/Availability
+      operations:
+      - name: checkavailability
+        method: GET
+        description: Salesforce Service Cloud Check agent availability
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_id
+          in: query
+          type: string
+          description: Salesforce organization ID
+          required: true
+        - name: deployment_id
+          in: query
+          type: string
+          description: Chat deployment ID
+          required: true
+        - name: Availability.ids
+          in: query
+          type: string
+          description: Comma-separated chat button IDs
+          required: true
+    authentication:
+      type: apikey
+      key: X-LIVEAGENT-API-VERSION
+      value: '{{env.SALESFORCE_SERVICE_CLOUD_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: salesforce-live-agent-availability-rest
+    port: 8080
+    description: REST adapter for Salesforce Service Cloud Salesforce Chat REST API — Availability. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/visitor/availability
+      name: visitor-availability
+      description: REST surface for Visitor-Availability.
+      operations:
+      - method: GET
+        name: checkavailability
+        description: Salesforce Service Cloud Check agent availability
+        call: salesforce-live-agent-availability.checkavailability
+        with:
+          org_id: rest.org_id
+          deployment_id: rest.deployment_id
+          Availability.ids: rest.Availability.ids
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: salesforce-live-agent-availability-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Salesforce Service Cloud Salesforce Chat REST API — Availability. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: salesforce-service-cloud-check-agent
+      description: Salesforce Service Cloud Check agent availability
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: salesforce-live-agent-availability.checkavailability
+      with:
+        org_id: tools.org_id
+        deployment_id: tools.deployment_id
+        Availability.ids: tools.Availability.ids
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Salesforce Service Cloud REST API — Knowledge
+  description: 'Salesforce Service Cloud REST API — Knowledge. 1 operations. Lead operation: Salesforce Service Cloud Get
+    Knowledge Article metadata. Self-contained Naftiko capability covering one Salesforce Service Cloud business surface.'
+  tags:
+  - Salesforce Service Cloud
+  - Knowledge
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SALESFORCE_SERVICE_CLOUD_API_KEY: SALESFORCE_SERVICE_CLOUD_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-knowledge
+    baseUri: https://{instance}.salesforce.com/services/data/v59.0
+    description: Salesforce Service Cloud REST API — Knowledge business capability. Self-contained, no shared references.
+    resources:
+    - name: sobjects-Knowledge__kav
+      path: /sobjects/Knowledge__kav
+      operations:
+      - name: getknowledgearticleinfo
+        method: GET
+        description: Salesforce Service Cloud Get Knowledge Article metadata
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SALESFORCE_SERVICE_CLOUD_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: rest-knowledge-rest
+    port: 8080
+    description: REST adapter for Salesforce Service Cloud REST API — Knowledge. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/sobjects/knowledge-kav
+      name: sobjects-knowledge-kav
+      description: REST surface for sobjects-Knowledge__kav.
+      operations:
+      - method: GET
+        name: getknowledgearticleinfo
+        description: Salesforce Service Cloud Get Knowledge Article metadata
+        call: rest-knowledge.getknowledgearticleinfo
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-knowledge-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Salesforce Service Cloud REST API — Knowledge. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: salesforce-service-cloud-get-knowledge
+      description: Salesforce Service Cloud Get Knowledge Article metadata
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-knowledge.getknowledgearticleinfo
+      outputParameters:
+      - type: object
+        mapping: $.
