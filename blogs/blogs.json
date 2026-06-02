@@ -2,13 +2,13 @@
   "repo": "salesforce-service-cloud",
   "feeds": [
     {
-      "source": "https://developer.salesforce.com/blogs",
-      "feed_url": "",
+      "source": "https://www.salesforce.com/company/privacy/",
+      "feed_url": "https://www.salesforce.com/company/privacy/",
       "title": "",
       "saved": 0,
-      "error": "no_feed"
+      "method": "none"
     }
   ],
-  "fetched": "2026-05-17T20:48:52Z",
+  "fetched": "2026-06-01T23:35:02Z",
   "post_count": 0
 }
