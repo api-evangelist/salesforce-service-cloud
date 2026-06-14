@@ -1,0 +1,1145 @@
+"""
+Salesforce Service Cloud - Conceptual GraphQL Schema
+Derived from: Salesforce REST API, Live Agent REST API, Knowledge API, Omni-Channel API
+Source: https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/
+"""
+
+scalar DateTime
+scalar Date
+scalar JSON
+scalar URL
+
+# ─────────────────────────────────────────────
+# Enumerations
+# ─────────────────────────────────────────────
+
+enum CaseStatusEnum {
+  NEW
+  WORKING
+  ESCALATED
+  CLOSED
+}
+
+enum CasePriorityEnum {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum CaseOriginEnum {
+  PHONE
+  EMAIL
+  WEB
+  CHAT
+  SOCIAL
+}
+
+enum CaseTypeEnum {
+  QUESTION
+  PROBLEM
+  FEATURE_REQUEST
+  OTHER
+}
+
+enum CaseReasonEnum {
+  USER_DID_NOT_ATTEND_TRAINING
+  COMPLEX_FUNCTIONALITY
+  INSTRUCTIONS_NOT_CLEAR
+  NEW_PROBLEM
+  EXISTING_PROBLEM
+  OTHER
+}
+
+enum ArticleStatusEnum {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum PresenceStatusEnum {
+  AVAILABLE
+  BUSY
+  OFFLINE
+  ON_BREAK
+}
+
+enum AgentWorkStatusEnum {
+  ASSIGNED
+  OPENED
+  ACCEPTED
+  DECLINED
+  CLOSED
+}
+
+enum FlowStatusEnum {
+  ACTIVE
+  INACTIVE
+  OBSOLETE
+}
+
+enum ChatSessionStatusEnum {
+  QUEUED
+  ACTIVE
+  COMPLETED
+  MISSED
+  DECLINED
+}
+
+enum SurveyQuestionTypeEnum {
+  RATING
+  TEXT
+  MULTIPLE_CHOICE
+  NPS
+  BOOLEAN
+}
+
+# ─────────────────────────────────────────────
+# Case Management
+# ─────────────────────────────────────────────
+
+"""Represents the status of a case."""
+type CaseStatus {
+  id: ID!
+  masterLabel: String!
+  apiName: String!
+  sortOrder: Int
+  isClosed: Boolean!
+  isDefault: Boolean!
+}
+
+"""Represents the priority level of a case."""
+type CasePriority {
+  id: ID!
+  masterLabel: String!
+  apiName: String!
+  sortOrder: Int
+  isDefault: Boolean!
+}
+
+"""Represents the origin channel of a case."""
+type CaseOrigin {
+  id: ID!
+  masterLabel: String!
+  apiName: String!
+  sortOrder: Int
+  isDefault: Boolean!
+}
+
+"""Represents the type classification of a case."""
+type CaseType {
+  id: ID!
+  masterLabel: String!
+  apiName: String!
+  sortOrder: Int
+  isDefault: Boolean!
+}
+
+"""Represents the reason a case was opened."""
+type CaseReason {
+  id: ID!
+  masterLabel: String!
+  apiName: String!
+  sortOrder: Int
+  isDefault: Boolean!
+}
+
+"""Represents the subject line of a case."""
+type CaseSubject {
+  raw: String!
+  normalized: String
+  language: String
+}
+
+"""Detailed fields for a Case record."""
+type CaseDetails {
+  id: ID!
+  caseNumber: String!
+  subject: String!
+  description: String
+  status: CaseStatusEnum!
+  priority: CasePriorityEnum!
+  origin: CaseOriginEnum
+  type: CaseTypeEnum
+  reason: CaseReasonEnum
+  isClosed: Boolean!
+  isEscalated: Boolean!
+  isDeleted: Boolean!
+  ownerId: ID!
+  contactId: ID
+  accountId: ID
+  entitlementId: ID
+  milestoneId: ID
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+  closedDate: DateTime
+  webEmail: String
+  webName: String
+  webPhone: String
+  webCompany: String
+  comments: [CaseComment!]
+  feeds: [CaseFeed!]
+  emailMessages: [CaseEmailMessage!]
+  activities: [ActivityHistory!]
+}
+
+"""A Salesforce Case (support ticket)."""
+type Case {
+  id: ID!
+  caseNumber: String!
+  subject: String!
+  status: CaseStatusEnum!
+  priority: CasePriorityEnum!
+  origin: CaseOriginEnum
+  isClosed: Boolean!
+  contact: Contact
+  account: Account
+  details: CaseDetails
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""A comment posted on a Case."""
+type CaseComment {
+  id: ID!
+  caseId: ID!
+  commentBody: String!
+  isPublished: Boolean!
+  isDeleted: Boolean!
+  createdById: ID!
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""A feed item (Chatter post) on a Case."""
+type CaseFeed {
+  id: ID!
+  caseId: ID!
+  type: String!
+  body: String
+  title: String
+  createdById: ID!
+  createdDate: DateTime!
+  commentCount: Int!
+  likeCount: Int!
+}
+
+"""An email message associated with a Case."""
+type EmailMessage {
+  id: ID!
+  subject: String
+  textBody: String
+  htmlBody: String
+  fromName: String
+  fromAddress: String!
+  toAddress: String!
+  ccAddress: String
+  bccAddress: String
+  messageDate: DateTime
+  isInbound: Boolean!
+  status: String!
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""Email message linked to a specific Case."""
+type CaseEmailMessage {
+  id: ID!
+  caseId: ID!
+  emailMessage: EmailMessage!
+  createdDate: DateTime!
+}
+
+"""A task (activity) record."""
+type TaskRecord {
+  id: ID!
+  subject: String!
+  description: String
+  activityDate: Date
+  status: String!
+  priority: String!
+  ownerId: ID!
+  whoId: ID
+  whatId: ID
+  isHighPriority: Boolean!
+  isClosed: Boolean!
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""Historical activity log entry."""
+type ActivityHistory {
+  id: ID!
+  subject: String!
+  activityType: String!
+  activityDate: Date
+  description: String
+  accountId: ID
+  whoId: ID
+  whatId: ID
+  ownerId: ID!
+  createdDate: DateTime!
+}
+
+# ─────────────────────────────────────────────
+# Contact and Account Management
+# ─────────────────────────────────────────────
+
+"""Detailed contact information."""
+type ContactDetails {
+  id: ID!
+  salutation: String
+  firstName: String
+  lastName: String!
+  email: String
+  phone: String
+  mobilePhone: String
+  title: String
+  department: String
+  accountId: ID
+  mailingStreet: String
+  mailingCity: String
+  mailingState: String
+  mailingPostalCode: String
+  mailingCountry: String
+  description: String
+  doNotCall: Boolean!
+  hasOptedOutOfEmail: Boolean!
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""A Salesforce Contact record."""
+type Contact {
+  id: ID!
+  firstName: String
+  lastName: String!
+  email: String
+  phone: String
+  accountId: ID
+  account: Account
+  details: ContactDetails
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""Detailed account information."""
+type AccountDetails {
+  id: ID!
+  name: String!
+  type: String
+  industry: String
+  annualRevenue: Float
+  numberOfEmployees: Int
+  phone: String
+  website: URL
+  billingStreet: String
+  billingCity: String
+  billingState: String
+  billingPostalCode: String
+  billingCountry: String
+  shippingStreet: String
+  shippingCity: String
+  shippingState: String
+  shippingPostalCode: String
+  shippingCountry: String
+  description: String
+  ownerId: ID!
+  parentId: ID
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""A Salesforce Account record."""
+type Account {
+  id: ID!
+  name: String!
+  type: String
+  industry: String
+  phone: String
+  website: URL
+  details: AccountDetails
+  contacts: [Contact!]
+  cases: [Case!]
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""Link between a Contact and an Entitlement."""
+type EntitlementContact {
+  id: ID!
+  entitlementId: ID!
+  contactId: ID!
+  contact: Contact!
+  createdDate: DateTime!
+}
+
+"""Detailed entitlement information."""
+type EntitlementDetails {
+  id: ID!
+  name: String!
+  accountId: ID!
+  account: Account!
+  serviceContractId: ID
+  startDate: Date!
+  endDate: Date
+  status: String!
+  type: String
+  remainingCases: Int
+  casesPerEntitlement: Int
+  isPerIncident: Boolean!
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""A support entitlement defining service level agreements."""
+type Entitlement {
+  id: ID!
+  name: String!
+  accountId: ID!
+  status: String!
+  startDate: Date!
+  endDate: Date
+  details: EntitlementDetails
+  contacts: [EntitlementContact!]
+  milestones: [Milestone!]
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""A line item within a service contract."""
+type ServiceContractLine {
+  id: ID!
+  serviceContractId: ID!
+  productId: ID
+  quantity: Float
+  unitPrice: Float
+  discount: Float
+  description: String
+  startDate: Date
+  endDate: Date
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""A service contract governing customer entitlements."""
+type ServiceContract {
+  id: ID!
+  name: String!
+  accountId: ID!
+  account: Account!
+  status: String!
+  startDate: Date!
+  endDate: Date
+  totalPrice: Float
+  description: String
+  lineItems: [ServiceContractLine!]
+  entitlements: [Entitlement!]
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""A line item linked to a contract."""
+type ContractLine {
+  id: ID!
+  contractId: ID!
+  productId: ID
+  quantity: Float!
+  unitPrice: Float!
+  totalPrice: Float!
+  startDate: Date
+  endDate: Date
+  description: String
+}
+
+"""An order item (product) on a Salesforce Order."""
+type OrderItem {
+  id: ID!
+  orderId: ID!
+  productId: ID!
+  productName: String!
+  quantity: Float!
+  unitPrice: Float!
+  totalPrice: Float!
+  description: String
+  listPrice: Float
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""Criteria that must be met to satisfy a Milestone."""
+type MilestoneCriteria {
+  id: ID!
+  milestoneId: ID!
+  field: String!
+  operator: String!
+  value: String!
+}
+
+"""A milestone within an entitlement process (SLA checkpoint)."""
+type Milestone {
+  id: ID!
+  name: String!
+  caseId: ID!
+  entitlementId: ID!
+  milestoneName: String!
+  startDate: DateTime
+  targetDate: DateTime
+  completionDate: DateTime
+  isCompleted: Boolean!
+  isViolated: Boolean!
+  criteria: [MilestoneCriteria!]
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+# ─────────────────────────────────────────────
+# Agent and Queue Management
+# ─────────────────────────────────────────────
+
+"""Detailed agent (user) information."""
+type AgentDetails {
+  id: ID!
+  username: String!
+  firstName: String
+  lastName: String!
+  email: String!
+  phone: String
+  mobilePhone: String
+  title: String
+  department: String
+  isActive: Boolean!
+  profileId: ID!
+  roleId: ID
+  managerId: ID
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""A work item assigned to an agent via Omni-Channel."""
+type AgentWork {
+  id: ID!
+  workItemId: ID!
+  workItemType: String!
+  agentId: ID!
+  agent: AgentDetails!
+  queueId: ID
+  routingConfigurationId: ID
+  status: AgentWorkStatusEnum!
+  acceptTime: DateTime
+  closeTime: DateTime
+  declineTime: DateTime
+  declineReason: String
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""A Salesforce Queue for routing work items."""
+type Queue {
+  id: ID!
+  name: String!
+  developerName: String!
+  email: String
+  description: String
+  doesSendEmailToMembers: Boolean!
+  members: [QueueMember!]
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""A member (user or group) of a Salesforce Queue."""
+type QueueMember {
+  id: ID!
+  queueId: ID!
+  queue: Queue!
+  userId: ID!
+  user: AgentDetails!
+  createdDate: DateTime!
+}
+
+# ─────────────────────────────────────────────
+# Live Chat
+# ─────────────────────────────────────────────
+
+"""Detailed visitor (web visitor) information."""
+type VisitorDetails {
+  id: ID!
+  visitorId: ID!
+  ipAddress: String
+  userAgent: String
+  browser: String
+  operatingSystem: String
+  screenResolution: String
+  location: String
+  referrer: URL
+  pagesViewed: Int
+  sessionDuration: Int
+  createdDate: DateTime!
+}
+
+"""A web visitor who initiates a chat."""
+type Visitor {
+  id: ID!
+  externalId: String
+  name: String
+  email: String
+  ipAddress: String
+  details: VisitorDetails
+  chatSessions: [ChatSession!]
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""A message within a live chat session."""
+type ChatMessage {
+  id: ID!
+  sessionId: ID!
+  senderId: ID!
+  senderType: String!
+  content: String!
+  timestamp: DateTime!
+  isDeleted: Boolean!
+}
+
+"""A transcript of a completed chat session."""
+type ChatTranscript {
+  id: ID!
+  sessionId: ID!
+  caseId: ID
+  contactId: ID
+  body: String!
+  startTime: DateTime!
+  endTime: DateTime
+  requestTime: DateTime
+  waitTime: Int
+  chatDuration: Int
+  agentId: ID
+  visitorId: ID!
+  createdDate: DateTime!
+}
+
+"""An active or historical live chat session."""
+type ChatSession {
+  id: ID!
+  key: String!
+  status: ChatSessionStatusEnum!
+  visitorId: ID!
+  visitor: Visitor!
+  agentId: ID
+  agent: AgentDetails
+  queueId: ID
+  startTime: DateTime
+  endTime: DateTime
+  waitTime: Int
+  messages: [ChatMessage!]
+  transcript: ChatTranscript
+  caseId: ID
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""Live chat configuration and deployment settings."""
+type LiveChat {
+  id: ID!
+  name: String!
+  deploymentUrl: URL
+  buttonId: ID!
+  organizationId: ID!
+  language: String
+  prechatFormEnabled: Boolean!
+  offlineSupportEnabled: Boolean!
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+# ─────────────────────────────────────────────
+# Knowledge Base
+# ─────────────────────────────────────────────
+
+"""A category grouping for knowledge articles."""
+type ArticleCategory {
+  id: ID!
+  name: String!
+  parentCategoryId: ID
+  sortOrder: Int
+  isActive: Boolean!
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""FAQ-specific data attached to an article."""
+type FAQData {
+  id: ID!
+  articleId: ID!
+  question: String!
+  answer: String!
+  sortOrder: Int
+}
+
+"""A version of a knowledge article."""
+type ArticleVersion {
+  id: ID!
+  articleId: ID!
+  versionNumber: Int!
+  title: String!
+  summary: String
+  body: String
+  language: String!
+  status: ArticleStatusEnum!
+  publishedDate: DateTime
+  archivedDate: DateTime
+  createdById: ID!
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""A Salesforce Knowledge article."""
+type KnowledgeArticle {
+  id: ID!
+  knowledgeArticleId: ID!
+  articleNumber: String!
+  title: String!
+  summary: String
+  urlName: String!
+  language: String!
+  status: ArticleStatusEnum!
+  viewCount: Int!
+  upVoteCount: Int!
+  downVoteCount: Int!
+  categories: [ArticleCategory!]
+  versions: [ArticleVersion!]
+  faqData: FAQData
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+  publishedDate: DateTime
+}
+
+"""A generic article or knowledge resource."""
+type Article {
+  id: ID!
+  title: String!
+  summary: String
+  body: String
+  type: String!
+  language: String!
+  isPublished: Boolean!
+  categories: [ArticleCategory!]
+  knowledgeArticle: KnowledgeArticle
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+# ─────────────────────────────────────────────
+# Surveys and Feedback
+# ─────────────────────────────────────────────
+
+"""A question within a survey."""
+type SurveyQuestion {
+  id: ID!
+  surveyId: ID!
+  questionText: String!
+  questionType: SurveyQuestionTypeEnum!
+  sortOrder: Int!
+  isRequired: Boolean!
+  choices: [String!]
+  minRating: Int
+  maxRating: Int
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""A response to a completed survey."""
+type SurveyResponse {
+  id: ID!
+  surveyId: ID!
+  contactId: ID
+  caseId: ID
+  submittedDate: DateTime!
+  answers: JSON
+  overallScore: Float
+  createdDate: DateTime!
+}
+
+"""A Salesforce Feedback Management survey."""
+type Survey {
+  id: ID!
+  name: String!
+  description: String
+  status: String!
+  totalResponseCount: Int!
+  questions: [SurveyQuestion!]
+  responses: [SurveyResponse!]
+  createdById: ID!
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""General feedback record collected from customers."""
+type Feedback {
+  id: ID!
+  subject: String!
+  description: String
+  rating: Int
+  contactId: ID
+  contact: Contact
+  caseId: ID
+  case: Case
+  source: String
+  submittedDate: DateTime!
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+# ─────────────────────────────────────────────
+# Omni-Channel and Routing
+# ─────────────────────────────────────────────
+
+"""A reason an agent declined work in Omni-Channel."""
+type PresenceDeclineReason {
+  id: ID!
+  label: String!
+  apiName: String!
+  isDefault: Boolean!
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""An agent's presence status in Omni-Channel."""
+type PresenceStatus {
+  id: ID!
+  label: String!
+  developerName: String!
+  status: PresenceStatusEnum!
+  agentId: ID
+  channelList: [String!]
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""Configuration for Omni-Channel routing behavior."""
+type RoutingConfiguration {
+  id: ID!
+  developerName: String!
+  label: String!
+  capacityPercentage: Float
+  capacityWeight: Float
+  dropAdditionalSkillsTimeout: Int
+  isAttributeBasedRouting: Boolean!
+  routingModel: String!
+  unitType: String!
+  queueId: ID
+  queue: Queue
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""A resource (agent) available for Omni-Channel service."""
+type ServiceResource {
+  id: ID!
+  name: String!
+  relatedRecordId: ID!
+  resourceType: String!
+  isActive: Boolean!
+  isCapacityManaged: Boolean!
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""Capacity limits for a service resource or configuration."""
+type WorkCapacity {
+  id: ID!
+  serviceResourceId: ID
+  serviceResource: ServiceResource
+  channelType: String!
+  workCapacity: Float!
+  usedCapacity: Float!
+  remainingCapacity: Float!
+  effectiveStartDate: DateTime
+  effectiveEndDate: DateTime
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""Omni-Channel supervisor view aggregate."""
+type OmniChannel {
+  id: ID!
+  agentWorkCount: Int!
+  activeAgents: [AgentDetails!]
+  queues: [Queue!]
+  presenceStatuses: [PresenceStatus!]
+  routingConfigurations: [RoutingConfiguration!]
+}
+
+# ─────────────────────────────────────────────
+# Flow and Automation
+# ─────────────────────────────────────────────
+
+"""A Salesforce Flow interview (running or completed instance)."""
+type FlowInterview {
+  id: ID!
+  flowId: ID!
+  currentElement: String
+  guid: String!
+  isPaused: Boolean!
+  pausedInterviewCount: Int
+  status: String!
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+"""A Salesforce Flow definition."""
+type Flow {
+  id: ID!
+  apiName: String!
+  label: String!
+  description: String
+  type: String!
+  status: FlowStatusEnum!
+  apiVersion: Float!
+  triggerType: String
+  processType: String
+  activeVersionId: ID
+  latestVersionId: ID
+  interviews: [FlowInterview!]
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+# ─────────────────────────────────────────────
+# Authentication
+# ─────────────────────────────────────────────
+
+"""An OAuth access token for Salesforce API access."""
+type Token {
+  accessToken: String!
+  tokenType: String!
+  instanceUrl: URL!
+  issuedAt: DateTime!
+  expiresIn: Int
+  refreshToken: String
+  scope: String
+  idUrl: URL
+}
+
+"""An API key or named credential for Salesforce integrations."""
+type APIKey {
+  id: ID!
+  name: String!
+  label: String
+  consumerKey: String!
+  type: String!
+  isActive: Boolean!
+  expirationDate: DateTime
+  createdDate: DateTime!
+  lastModifiedDate: DateTime!
+}
+
+# ─────────────────────────────────────────────
+# Root Query and Mutation Types
+# ─────────────────────────────────────────────
+
+type Query {
+  # Case Management
+  case(id: ID!): Case
+  cases(status: CaseStatusEnum, priority: CasePriorityEnum, limit: Int, offset: Int): [Case!]!
+  caseDetails(id: ID!): CaseDetails
+  caseComments(caseId: ID!): [CaseComment!]!
+  caseFeed(caseId: ID!): [CaseFeed!]!
+  emailMessage(id: ID!): EmailMessage
+  caseEmailMessages(caseId: ID!): [CaseEmailMessage!]!
+  taskRecord(id: ID!): TaskRecord
+  activityHistory(whoId: ID, whatId: ID, limit: Int): [ActivityHistory!]!
+
+  # Contact and Account Management
+  contact(id: ID!): Contact
+  contacts(accountId: ID, limit: Int, offset: Int): [Contact!]!
+  account(id: ID!): Account
+  accounts(limit: Int, offset: Int): [Account!]!
+  entitlement(id: ID!): Entitlement
+  entitlements(accountId: ID, limit: Int): [Entitlement!]!
+  serviceContract(id: ID!): ServiceContract
+  serviceContracts(accountId: ID, limit: Int): [ServiceContract!]!
+  milestone(id: ID!): Milestone
+  milestones(caseId: ID, entitlementId: ID): [Milestone!]!
+
+  # Agent and Queue Management
+  agentWork(id: ID!): AgentWork
+  agentWorks(agentId: ID, status: AgentWorkStatusEnum, limit: Int): [AgentWork!]!
+  queue(id: ID!): Queue
+  queues(limit: Int): [Queue!]!
+  queueMembers(queueId: ID!): [QueueMember!]!
+
+  # Live Chat
+  chatSession(id: ID!): ChatSession
+  chatSessions(visitorId: ID, agentId: ID, status: ChatSessionStatusEnum, limit: Int): [ChatSession!]!
+  chatTranscript(sessionId: ID!): ChatTranscript
+  visitor(id: ID!): Visitor
+
+  # Knowledge Base
+  knowledgeArticle(id: ID!): KnowledgeArticle
+  knowledgeArticles(status: ArticleStatusEnum, categoryId: ID, language: String, limit: Int, offset: Int): [KnowledgeArticle!]!
+  articleCategories: [ArticleCategory!]!
+  article(id: ID!): Article
+  articles(limit: Int, offset: Int): [Article!]!
+
+  # Surveys and Feedback
+  survey(id: ID!): Survey
+  surveys(status: String, limit: Int): [Survey!]!
+  surveyResponse(id: ID!): SurveyResponse
+  surveyResponses(surveyId: ID!, limit: Int): [SurveyResponse!]!
+  feedback(id: ID!): Feedback
+  feedbacks(caseId: ID, contactId: ID, limit: Int): [Feedback!]!
+
+  # Omni-Channel
+  omniChannel: OmniChannel
+  presenceStatus(agentId: ID!): PresenceStatus
+  routingConfiguration(id: ID!): RoutingConfiguration
+  routingConfigurations(limit: Int): [RoutingConfiguration!]!
+  serviceResource(id: ID!): ServiceResource
+  serviceResources(isActive: Boolean, limit: Int): [ServiceResource!]!
+  workCapacity(serviceResourceId: ID!): WorkCapacity
+
+  # Flow and Automation
+  flow(id: ID!): Flow
+  flows(status: FlowStatusEnum, type: String, limit: Int): [Flow!]!
+  flowInterview(id: ID!): FlowInterview
+}
+
+type Mutation {
+  # Case Management
+  createCase(input: CreateCaseInput!): Case!
+  updateCase(id: ID!, input: UpdateCaseInput!): Case!
+  closeCase(id: ID!): Case!
+  createCaseComment(caseId: ID!, body: String!, isPublished: Boolean): CaseComment!
+  updateCaseComment(id: ID!, body: String, isPublished: Boolean): CaseComment!
+  deleteCaseComment(id: ID!): Boolean!
+  sendCaseEmail(caseId: ID!, input: SendEmailInput!): EmailMessage!
+
+  # Contact and Account Management
+  createContact(input: CreateContactInput!): Contact!
+  updateContact(id: ID!, input: UpdateContactInput!): Contact!
+  createAccount(input: CreateAccountInput!): Account!
+  updateAccount(id: ID!, input: UpdateAccountInput!): Account!
+
+  # Agent and Queue Management
+  acceptAgentWork(id: ID!): AgentWork!
+  declineAgentWork(id: ID!, declineReason: String): AgentWork!
+  closeAgentWork(id: ID!): AgentWork!
+
+  # Live Chat
+  startChatSession(deploymentId: ID!, visitorId: ID, organizationId: ID!): ChatSession!
+  endChatSession(sessionId: ID!): ChatSession!
+  sendChatMessage(sessionId: ID!, content: String!): ChatMessage!
+
+  # Knowledge Base
+  createArticle(input: CreateArticleInput!): KnowledgeArticle!
+  publishArticle(id: ID!): KnowledgeArticle!
+  archiveArticle(id: ID!): KnowledgeArticle!
+
+  # Surveys and Feedback
+  submitSurveyResponse(surveyId: ID!, answers: JSON!, contactId: ID, caseId: ID): SurveyResponse!
+  createFeedback(input: CreateFeedbackInput!): Feedback!
+
+  # Omni-Channel
+  updatePresenceStatus(agentId: ID!, statusId: ID!): PresenceStatus!
+
+  # Flow and Automation
+  startFlow(flowId: ID!, inputs: JSON): FlowInterview!
+  resumeFlowInterview(interviewId: ID!, inputs: JSON): FlowInterview!
+}
+
+# ─────────────────────────────────────────────
+# Input Types
+# ─────────────────────────────────────────────
+
+input CreateCaseInput {
+  subject: String!
+  description: String
+  status: CaseStatusEnum
+  priority: CasePriorityEnum
+  origin: CaseOriginEnum
+  type: CaseTypeEnum
+  reason: CaseReasonEnum
+  contactId: ID
+  accountId: ID
+  entitlementId: ID
+}
+
+input UpdateCaseInput {
+  subject: String
+  description: String
+  status: CaseStatusEnum
+  priority: CasePriorityEnum
+  type: CaseTypeEnum
+  reason: CaseReasonEnum
+  contactId: ID
+  accountId: ID
+  entitlementId: ID
+}
+
+input SendEmailInput {
+  subject: String!
+  textBody: String
+  htmlBody: String
+  toAddress: String!
+  ccAddress: String
+  bccAddress: String
+  fromAddress: String
+}
+
+input CreateContactInput {
+  firstName: String
+  lastName: String!
+  email: String
+  phone: String
+  mobilePhone: String
+  accountId: ID
+  title: String
+  department: String
+}
+
+input UpdateContactInput {
+  firstName: String
+  lastName: String
+  email: String
+  phone: String
+  mobilePhone: String
+  title: String
+  department: String
+}
+
+input CreateAccountInput {
+  name: String!
+  type: String
+  industry: String
+  phone: String
+  website: URL
+  description: String
+}
+
+input UpdateAccountInput {
+  name: String
+  type: String
+  industry: String
+  phone: String
+  website: URL
+  description: String
+}
+
+input CreateArticleInput {
+  title: String!
+  summary: String
+  body: String!
+  urlName: String!
+  language: String!
+  categoryIds: [ID!]
+}
+
+input CreateFeedbackInput {
+  subject: String!
+  description: String
+  rating: Int
+  contactId: ID
+  caseId: ID
+  source: String
+}
