@@ -198,7 +198,7 @@ common:
   url: https://help.salesforce.com/articleView?id=sf.remoteaccess_authenticate.htm
 - type: RateLimits
   url: https://developer.salesforce.com/docs/atlas.en-us.salesforce_app_limits_cheatsheet.meta/salesforce_app_limits_cheatsheet/
-- type: Developer Portal
+- type: DeveloperPortal
   url: https://developer.salesforce.com/
 - type: Trailhead (Learning)
   url: https://trailhead.salesforce.com/
@@ -216,7 +216,7 @@ common:
   url: https://www.salesforce.com/company/privacy/
 - type: Blog
   url: https://developer.salesforce.com/blogs
-- type: SignUp
+- type: Signup
   url: https://developer.salesforce.com/signup
 - type: Login
   url: https://login.salesforce.com/
@@ -228,12 +228,12 @@ common:
   url: https://stackoverflow.com/questions/tagged/salesforce
 - type: YouTube
   url: https://www.youtube.com/@SalesforceDevelopers
-- type: JSON Schema
+- type: JSONSchema
   url: json-schema/salesforce-case-schema.json
   title: Case Schema
-- type: JSON-LD Context
+- type: JSONLDContext
   url: json-ld/salesforce-service-cloud-context.jsonld
-- type: Spectral Rules
+- type: SpectralRules
   url: rules/salesforce-service-cloud-rules.yml
 - type: Capabilities
   url: capabilities/case-management.yaml
