@@ -190,6 +190,10 @@ apis:
   - type: GettingStarted
     url: https://developer.salesforce.com/docs/einstein/genai/guide/agent-api-get-started.html
 common:
+- type: Authentication
+  url: authentication/salesforce-service-cloud-authentication.yml
+- type: OAuthScopes
+  url: scopes/salesforce-service-cloud-scopes.yml
 - type: LinkedIn
   url: https://www.linkedin.com/showcase/salesforce-for-service
 - type: GettingStarted

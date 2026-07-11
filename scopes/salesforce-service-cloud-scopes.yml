@@ -1,0 +1,23 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/salesforce-service-cloud-rest-openapi.yml
+schemes:
+- name: oauth2
+  source: openapi/salesforce-service-cloud-rest-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://login.salesforce.com/services/oauth2/authorize
+    tokenUrl: https://login.salesforce.com/services/oauth2/token
+scopes:
+- scope: api
+  description: Access Salesforce REST API
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/salesforce-service-cloud-rest-openapi.yml
+- scope: full
+  description: Full access
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/salesforce-service-cloud-rest-openapi.yml
