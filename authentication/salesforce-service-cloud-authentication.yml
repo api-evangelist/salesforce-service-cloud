@@ -1,0 +1,35 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/salesforce-live-agent-openapi.yml, openapi/salesforce-service-cloud-rest-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  - oauth2
+  api_key_in:
+  - header
+  oauth2_flows:
+  - authorizationCode
+schemes:
+- name: apiKey
+  type: apiKey
+  in: header
+  parameter: X-LIVEAGENT-API-VERSION
+  description: Live Agent API version header
+  sources:
+  - openapi/salesforce-live-agent-openapi.yml
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://login.salesforce.com/services/oauth2/authorize
+    tokenUrl: https://login.salesforce.com/services/oauth2/token
+    scopes: 2
+  sources:
+  - openapi/salesforce-service-cloud-rest-openapi.yml
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: OAuth2
+  sources:
+  - openapi/salesforce-service-cloud-rest-openapi.yml
