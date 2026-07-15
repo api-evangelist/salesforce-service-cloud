@@ -190,6 +190,8 @@ apis:
   - type: GettingStarted
     url: https://developer.salesforce.com/docs/einstein/genai/guide/agent-api-get-started.html
 common:
+- type: AgenticAccess
+  url: agentic-access/salesforce-service-cloud-agentic-access.yml
 - type: DomainSecurity
   url: security/salesforce-service-cloud-domain-security.yml
 - type: Authentication
