@@ -1,0 +1,249 @@
+openapi: 3.1.0
+info:
+  title: Salesforce Service Cloud Salesforce Chat REST Accounts Cases API
+  description: REST API for managing live chat sessions between agents and visitors in Salesforce Service Cloud. Enables initiating chat sessions, sending and receiving messages, and monitoring chat activity.
+  version: '59.0'
+  contact:
+    name: Salesforce Developer Support
+    url: https://developer.salesforce.com/support
+  termsOfService: https://www.salesforce.com/company/legal/agreements/
+servers:
+- url: https://{hostname}/chat/rest
+  description: Chat REST API Endpoint
+  variables:
+    hostname:
+      default: d.la1-c1-ia4.salesforceliveagent.com
+      description: Your Live Agent endpoint hostname
+security:
+- apiKey: []
+tags:
+- name: Cases
+  description: Operations for managing customer service cases
+paths:
+  /sobjects/Case:
+    get:
+      operationId: getCaseInfo
+      summary: Salesforce Service Cloud Get Case object metadata
+      description: Retrieves basic metadata and recently created cases for the Case sObject type.
+      tags:
+      - Cases
+      responses:
+        '200':
+          description: Case object metadata and recent records
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SObjectBasicInfo'
+        '401':
+          description: Unauthorized - invalid or expired session
+    post:
+      operationId: createCase
+      summary: Salesforce Service Cloud Create a new case
+      description: Creates a new case record with the specified field values for tracking customer service issues.
+      tags:
+      - Cases
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaseInput'
+      responses:
+        '201':
+          description: Case created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateResponse'
+        '400':
+          description: Invalid request - missing required fields or validation error
+        '401':
+          description: Unauthorized
+  /sobjects/Case/{caseId}:
+    get:
+      operationId: getCaseById
+      summary: Salesforce Service Cloud Get a case by ID
+      description: Retrieves a single case record by its Salesforce ID, including all accessible fields.
+      tags:
+      - Cases
+      parameters:
+      - $ref: '#/components/parameters/CaseId'
+      responses:
+        '200':
+          description: Case record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Case'
+        '404':
+          description: Case not found
+    patch:
+      operationId: updateCase
+      summary: Salesforce Service Cloud Update a case
+      description: Updates specified fields on an existing case record.
+      tags:
+      - Cases
+      parameters:
+      - $ref: '#/components/parameters/CaseId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaseInput'
+      responses:
+        '204':
+          description: Case updated successfully
+        '400':
+          description: Validation error
+        '404':
+          description: Case not found
+    delete:
+      operationId: deleteCase
+      summary: Salesforce Service Cloud Delete a case
+      description: Deletes a case record by its Salesforce ID.
+      tags:
+      - Cases
+      parameters:
+      - $ref: '#/components/parameters/CaseId'
+      responses:
+        '204':
+          description: Case deleted successfully
+        '404':
+          description: Case not found
+components:
+  schemas:
+    CaseInput:
+      type: object
+      properties:
+        Subject:
+          type: string
+          description: Brief description of the case
+        Description:
+          type: string
+          description: Detailed description of the customer issue
+        Status:
+          type: string
+          description: Current status of the case
+        Priority:
+          type: string
+          description: Priority level
+        Origin:
+          type: string
+          description: Source channel
+        Type:
+          type: string
+          description: Type of case
+        ContactId:
+          type: string
+          description: ID of the associated contact
+        AccountId:
+          type: string
+          description: ID of the associated account
+    CreateResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the created record
+        success:
+          type: boolean
+          description: Whether the operation succeeded
+        errors:
+          type: array
+          items:
+            type: object
+          description: List of errors if any
+    Case:
+      type: object
+      properties:
+        Id:
+          type: string
+          description: Unique Salesforce record identifier
+        CaseNumber:
+          type: string
+          description: Auto-generated case number
+        Subject:
+          type: string
+          description: Brief description of the case
+        Description:
+          type: string
+          description: Detailed description of the customer issue
+        Status:
+          type: string
+          description: Current status of the case
+          enum:
+          - New
+          - Working
+          - Escalated
+          - Closed
+        Priority:
+          type: string
+          description: Priority level of the case
+          enum:
+          - High
+          - Medium
+          - Low
+        Origin:
+          type: string
+          description: Source channel of the case
+          enum:
+          - Phone
+          - Email
+          - Web
+          - Chat
+        Type:
+          type: string
+          description: Type of case
+        ContactId:
+          type: string
+          description: ID of the associated contact
+        AccountId:
+          type: string
+          description: ID of the associated account
+        OwnerId:
+          type: string
+          description: ID of the case owner
+        CreatedDate:
+          type: string
+          format: date-time
+          description: Date and time the case was created
+        ClosedDate:
+          type: string
+          format: date-time
+          description: Date and time the case was closed
+        IsClosed:
+          type: boolean
+          description: Whether the case is closed
+        IsEscalated:
+          type: boolean
+          description: Whether the case has been escalated
+    SObjectBasicInfo:
+      type: object
+      properties:
+        objectDescribe:
+          type: object
+          description: Object metadata
+        recentItems:
+          type: array
+          items:
+            type: object
+          description: Recently created or updated records
+  parameters:
+    CaseId:
+      name: caseId
+      in: path
+      required: true
+      description: The Salesforce ID of the case
+      schema:
+        type: string
+        pattern: ^[a-zA-Z0-9]{15,18}$
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-LIVEAGENT-API-VERSION
+      description: Live Agent API version header
+externalDocs:
+  description: Chat REST API Developer Guide
+  url: https://developer.salesforce.com/docs/atlas.en-us.live_agent_rest.meta/live_agent_rest/

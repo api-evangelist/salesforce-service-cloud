@@ -1,0 +1,62 @@
+openapi: 3.1.0
+info:
+  title: Salesforce Service Cloud Salesforce Chat REST Accounts Search API
+  description: REST API for managing live chat sessions between agents and visitors in Salesforce Service Cloud. Enables initiating chat sessions, sending and receiving messages, and monitoring chat activity.
+  version: '59.0'
+  contact:
+    name: Salesforce Developer Support
+    url: https://developer.salesforce.com/support
+  termsOfService: https://www.salesforce.com/company/legal/agreements/
+servers:
+- url: https://{hostname}/chat/rest
+  description: Chat REST API Endpoint
+  variables:
+    hostname:
+      default: d.la1-c1-ia4.salesforceliveagent.com
+      description: Your Live Agent endpoint hostname
+security:
+- apiKey: []
+tags:
+- name: Search
+  description: SOSL search operations
+paths:
+  /search:
+    get:
+      operationId: executeSearch
+      summary: Salesforce Service Cloud Execute a SOSL search
+      description: Executes a SOSL search across service cloud objects and returns matching records.
+      tags:
+      - Search
+      parameters:
+      - name: q
+        in: query
+        required: true
+        description: SOSL search string
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResult'
+components:
+  schemas:
+    SearchResult:
+      type: object
+      properties:
+        searchRecords:
+          type: array
+          items:
+            type: object
+          description: Array of matching records
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-LIVEAGENT-API-VERSION
+      description: Live Agent API version header
+externalDocs:
+  description: Chat REST API Developer Guide
+  url: https://developer.salesforce.com/docs/atlas.en-us.live_agent_rest.meta/live_agent_rest/

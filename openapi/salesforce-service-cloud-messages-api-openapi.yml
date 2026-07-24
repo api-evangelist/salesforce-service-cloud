@@ -1,0 +1,123 @@
+openapi: 3.1.0
+info:
+  title: Salesforce Service Cloud Salesforce Chat REST Accounts Messages API
+  description: REST API for managing live chat sessions between agents and visitors in Salesforce Service Cloud. Enables initiating chat sessions, sending and receiving messages, and monitoring chat activity.
+  version: '59.0'
+  contact:
+    name: Salesforce Developer Support
+    url: https://developer.salesforce.com/support
+  termsOfService: https://www.salesforce.com/company/legal/agreements/
+servers:
+- url: https://{hostname}/chat/rest
+  description: Chat REST API Endpoint
+  variables:
+    hostname:
+      default: d.la1-c1-ia4.salesforceliveagent.com
+      description: Your Live Agent endpoint hostname
+security:
+- apiKey: []
+tags:
+- name: Messages
+  description: Chat message operations
+paths:
+  /System/Messages:
+    get:
+      operationId: getMessages
+      summary: Salesforce Service Cloud Get chat messages
+      description: Returns all messages sent between agents and chat visitors during a chat session, including system messages and events.
+      tags:
+      - Messages
+      parameters:
+      - $ref: '#/components/parameters/SessionKey'
+      - $ref: '#/components/parameters/AffinityToken'
+      responses:
+        '200':
+          description: Chat messages
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessagesResponse'
+        '403':
+          description: Invalid session
+  /Chasitor/ChatMessage:
+    post:
+      operationId: sendChatMessage
+      summary: Salesforce Service Cloud Send a chat message
+      description: Sends a chat message from the visitor to the agent during an active chat session.
+      tags:
+      - Messages
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatMessageRequest'
+      responses:
+        '200':
+          description: Message sent successfully
+        '403':
+          description: Invalid session or chat ended
+components:
+  parameters:
+    SessionKey:
+      name: X-LIVEAGENT-SESSION-KEY
+      in: header
+      required: true
+      description: The session key from the SessionId response
+      schema:
+        type: string
+    AffinityToken:
+      name: X-LIVEAGENT-AFFINITY
+      in: header
+      required: true
+      description: Affinity token for session routing
+      schema:
+        type: string
+  schemas:
+    ChatMessage:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type of message
+          enum:
+          - ChatMessage
+          - AgentTyping
+          - ChatEnded
+          - ChatTransferred
+          - AgentNotTyping
+          - ChatEstablished
+        message:
+          type: object
+          properties:
+            text:
+              type: string
+              description: Message text content
+            name:
+              type: string
+              description: Sender name
+    ChatMessageRequest:
+      type: object
+      required:
+      - text
+      properties:
+        text:
+          type: string
+          description: Message text to send
+    MessagesResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatMessage'
+          description: Array of chat messages and events
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-LIVEAGENT-API-VERSION
+      description: Live Agent API version header
+externalDocs:
+  description: Chat REST API Developer Guide
+  url: https://developer.salesforce.com/docs/atlas.en-us.live_agent_rest.meta/live_agent_rest/

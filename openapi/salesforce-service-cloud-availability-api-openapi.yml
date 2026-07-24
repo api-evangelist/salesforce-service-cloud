@@ -1,0 +1,90 @@
+openapi: 3.1.0
+info:
+  title: Salesforce Service Cloud Salesforce Chat REST Accounts Availability API
+  description: REST API for managing live chat sessions between agents and visitors in Salesforce Service Cloud. Enables initiating chat sessions, sending and receiving messages, and monitoring chat activity.
+  version: '59.0'
+  contact:
+    name: Salesforce Developer Support
+    url: https://developer.salesforce.com/support
+  termsOfService: https://www.salesforce.com/company/legal/agreements/
+servers:
+- url: https://{hostname}/chat/rest
+  description: Chat REST API Endpoint
+  variables:
+    hostname:
+      default: d.la1-c1-ia4.salesforceliveagent.com
+      description: Your Live Agent endpoint hostname
+security:
+- apiKey: []
+tags:
+- name: Availability
+  description: Agent availability and routing
+paths:
+  /Visitor/Availability:
+    get:
+      operationId: checkAvailability
+      summary: Salesforce Service Cloud Check agent availability
+      description: Indicates whether a chat button is available to receive new chat requests based on agent availability and routing rules.
+      tags:
+      - Availability
+      parameters:
+      - name: org_id
+        in: query
+        required: true
+        description: Salesforce organization ID
+        schema:
+          type: string
+      - name: deployment_id
+        in: query
+        required: true
+        description: Chat deployment ID
+        schema:
+          type: string
+      - name: Availability.ids
+        in: query
+        required: true
+        description: Comma-separated chat button IDs
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Availability status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvailabilityResponse'
+components:
+  schemas:
+    AvailabilityResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              message:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Chat button ID
+                        isAvailable:
+                          type: boolean
+                          description: Whether agents are available
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-LIVEAGENT-API-VERSION
+      description: Live Agent API version header
+externalDocs:
+  description: Chat REST API Developer Guide
+  url: https://developer.salesforce.com/docs/atlas.en-us.live_agent_rest.meta/live_agent_rest/

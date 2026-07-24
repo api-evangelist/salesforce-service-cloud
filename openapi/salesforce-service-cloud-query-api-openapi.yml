@@ -1,0 +1,71 @@
+openapi: 3.1.0
+info:
+  title: Salesforce Service Cloud Salesforce Chat REST Accounts Query API
+  description: REST API for managing live chat sessions between agents and visitors in Salesforce Service Cloud. Enables initiating chat sessions, sending and receiving messages, and monitoring chat activity.
+  version: '59.0'
+  contact:
+    name: Salesforce Developer Support
+    url: https://developer.salesforce.com/support
+  termsOfService: https://www.salesforce.com/company/legal/agreements/
+servers:
+- url: https://{hostname}/chat/rest
+  description: Chat REST API Endpoint
+  variables:
+    hostname:
+      default: d.la1-c1-ia4.salesforceliveagent.com
+      description: Your Live Agent endpoint hostname
+security:
+- apiKey: []
+tags:
+- name: Query
+  description: SOQL query operations
+paths:
+  /query:
+    get:
+      operationId: executeQuery
+      summary: Salesforce Service Cloud Execute a SOQL query
+      description: Executes a SOQL query against service cloud objects and returns matching records.
+      tags:
+      - Query
+      parameters:
+      - name: q
+        in: query
+        required: true
+        description: SOQL query string
+        schema:
+          type: string
+          example: SELECT Id, Subject, Status FROM Case WHERE Status = 'New'
+      responses:
+        '200':
+          description: Query results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResult'
+        '400':
+          description: Invalid SOQL query
+components:
+  schemas:
+    QueryResult:
+      type: object
+      properties:
+        totalSize:
+          type: integer
+          description: Total number of matching records
+        done:
+          type: boolean
+          description: Whether all results are returned
+        records:
+          type: array
+          items:
+            type: object
+          description: Array of matching records
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-LIVEAGENT-API-VERSION
+      description: Live Agent API version header
+externalDocs:
+  description: Chat REST API Developer Guide
+  url: https://developer.salesforce.com/docs/atlas.en-us.live_agent_rest.meta/live_agent_rest/
