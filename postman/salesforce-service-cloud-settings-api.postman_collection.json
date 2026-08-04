@@ -1,0 +1,161 @@
+{
+  "info": {
+    "_postman_id": "cfe94a58-d1f7-4ae6-8889-fec5514ee724",
+    "name": "Salesforce Service Cloud Salesforce Chat REST Accounts Settings API",
+    "description": "REST API for managing live chat sessions between agents and visitors in Salesforce Service Cloud. Enables initiating chat sessions, sending and receiving messages, and monitoring chat activity.\n\nContact Support:\n Name: Salesforce Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:50:48.000Z",
+    "updatedAt": "2026-07-28T02:50:48.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-cfe94a58-d1f7-4ae6-8889-fec5514ee724"
+  },
+  "item": [
+    {
+      "name": "Visitor",
+      "item": [
+        {
+          "name": "Settings",
+          "item": [
+            {
+              "name": "Salesforce Service Cloud Get deployment settings",
+              "id": "bba5a05b-796b-4b37-8e8b-ef8f4d3a1956",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/Visitor/Settings?org_id=<string>&deployment_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "Visitor",
+                    "Settings"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Salesforce organization ID",
+                      "key": "org_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Chat deployment ID",
+                      "key": "deployment_id",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Retrieves settings and configuration for a chat deployment, used to initialize the chat client."
+              },
+              "response": [
+                {
+                  "id": "5bc5c379-a9f6-4ae7-93d5-8b7dc4a2296e",
+                  "name": "Deployment settings",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-LIVEAGENT-API-VERSION",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/Visitor/Settings?org_id=<string>&deployment_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "Visitor",
+                        "Settings"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Salesforce organization ID",
+                          "key": "org_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Chat deployment ID",
+                          "key": "deployment_id",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{}",
+                  "createdAt": "2026-07-28T02:50:49.000Z",
+                  "updatedAt": "2026-07-28T02:50:49.000Z",
+                  "uid": "35240-5bc5c379-a9f6-4ae7-93d5-8b7dc4a2296e"
+                }
+              ],
+              "createdAt": "2026-07-28T02:50:49.000Z",
+              "updatedAt": "2026-07-28T02:50:49.000Z",
+              "uid": "35240-bba5a05b-796b-4b37-8e8b-ef8f4d3a1956"
+            }
+          ],
+          "id": "cd98fa75-5677-4d23-be4c-9fe9c6acb4d9",
+          "createdAt": "2026-07-28T02:50:49.000Z",
+          "updatedAt": "2026-07-28T02:50:49.000Z",
+          "uid": "35240-cd98fa75-5677-4d23-be4c-9fe9c6acb4d9"
+        }
+      ],
+      "id": "68fd916a-9fff-427a-9cab-f3f990808794",
+      "createdAt": "2026-07-28T02:50:49.000Z",
+      "updatedAt": "2026-07-28T02:50:49.000Z",
+      "uid": "35240-68fd916a-9fff-427a-9cab-f3f990808794"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-LIVEAGENT-API-VERSION",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "hostname",
+      "value": "d.la1-c1-ia4.salesforceliveagent.com"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{hostname}}/chat/rest"
+    }
+  ]
+}

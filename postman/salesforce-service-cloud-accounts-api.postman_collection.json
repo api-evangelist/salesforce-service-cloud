@@ -1,0 +1,137 @@
+{
+  "info": {
+    "_postman_id": "f3c287ce-5682-4eca-b748-f326c7b17285",
+    "name": "Salesforce Service Cloud Salesforce Chat REST Accounts API",
+    "description": "REST API for managing live chat sessions between agents and visitors in Salesforce Service Cloud. Enables initiating chat sessions, sending and receiving messages, and monitoring chat activity.\n\nContact Support:\n Name: Salesforce Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:50:30.000Z",
+    "updatedAt": "2026-07-28T02:50:31.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f3c287ce-5682-4eca-b748-f326c7b17285"
+  },
+  "item": [
+    {
+      "name": "sobjects",
+      "item": [
+        {
+          "name": "Account",
+          "item": [
+            {
+              "name": "Salesforce Service Cloud Get Account object metadata",
+              "id": "017067d2-398d-4f37-8cb2-857030d5a394",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/sobjects/Account",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sobjects",
+                    "Account"
+                  ]
+                },
+                "description": "Retrieves basic metadata and recently created accounts for the Account sObject type."
+              },
+              "response": [
+                {
+                  "id": "7e6f3304-5e7e-47b0-acba-60aa6247a671",
+                  "name": "Account object metadata",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-LIVEAGENT-API-VERSION",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sobjects/Account",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sobjects",
+                        "Account"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"objectDescribe\": {}\n}",
+                  "createdAt": "2026-07-28T02:50:31.000Z",
+                  "updatedAt": "2026-07-28T02:50:31.000Z",
+                  "uid": "35240-7e6f3304-5e7e-47b0-acba-60aa6247a671"
+                }
+              ],
+              "createdAt": "2026-07-28T02:50:31.000Z",
+              "updatedAt": "2026-07-28T02:50:31.000Z",
+              "uid": "35240-017067d2-398d-4f37-8cb2-857030d5a394"
+            }
+          ],
+          "id": "09ac8964-641d-4741-945c-240172219088",
+          "createdAt": "2026-07-28T02:50:31.000Z",
+          "updatedAt": "2026-07-28T02:50:31.000Z",
+          "uid": "35240-09ac8964-641d-4741-945c-240172219088"
+        }
+      ],
+      "id": "6e2a38a7-189e-436e-a5aa-78240c521611",
+      "createdAt": "2026-07-28T02:50:31.000Z",
+      "updatedAt": "2026-07-28T02:50:31.000Z",
+      "uid": "35240-6e2a38a7-189e-436e-a5aa-78240c521611"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-LIVEAGENT-API-VERSION",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "hostname",
+      "value": "d.la1-c1-ia4.salesforceliveagent.com"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{hostname}}/chat/rest"
+    }
+  ]
+}

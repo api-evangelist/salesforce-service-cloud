@@ -1,0 +1,140 @@
+{
+  "info": {
+    "_postman_id": "ec10b92c-6ea8-4686-a13f-bb08b19bdc5f",
+    "name": "Salesforce Service Cloud Salesforce Chat REST Accounts Search API",
+    "description": "REST API for managing live chat sessions between agents and visitors in Salesforce Service Cloud. Enables initiating chat sessions, sending and receiving messages, and monitoring chat activity.\n\nContact Support:\n Name: Salesforce Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:50:46.000Z",
+    "updatedAt": "2026-07-28T02:50:46.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ec10b92c-6ea8-4686-a13f-bb08b19bdc5f"
+  },
+  "item": [
+    {
+      "name": "search",
+      "item": [
+        {
+          "name": "Salesforce Service Cloud Execute a SOSL search",
+          "id": "880d35d2-64ca-4aca-a0bf-ef9375eaeec3",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/search?q=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search"
+              ],
+              "query": [
+                {
+                  "description": "(Required) SOSL search string",
+                  "key": "q",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Executes a SOSL search across service cloud objects and returns matching records."
+          },
+          "response": [
+            {
+              "id": "f40861c0-6bfb-418f-8693-caecdedd4dcb",
+              "name": "Search results",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-LIVEAGENT-API-VERSION",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/search?q=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) SOSL search string",
+                      "key": "q",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{}",
+              "createdAt": "2026-07-28T02:50:47.000Z",
+              "updatedAt": "2026-07-28T02:50:47.000Z",
+              "uid": "35240-f40861c0-6bfb-418f-8693-caecdedd4dcb"
+            }
+          ],
+          "createdAt": "2026-07-28T02:50:47.000Z",
+          "updatedAt": "2026-07-28T02:50:47.000Z",
+          "uid": "35240-880d35d2-64ca-4aca-a0bf-ef9375eaeec3"
+        }
+      ],
+      "id": "ef408687-a31c-49d8-bd52-9782ebdbd2c5",
+      "createdAt": "2026-07-28T02:50:47.000Z",
+      "updatedAt": "2026-07-28T02:50:47.000Z",
+      "uid": "35240-ef408687-a31c-49d8-bd52-9782ebdbd2c5"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-LIVEAGENT-API-VERSION",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "hostname",
+      "value": "d.la1-c1-ia4.salesforceliveagent.com"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{hostname}}/chat/rest"
+    }
+  ]
+}

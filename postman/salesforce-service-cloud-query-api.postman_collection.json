@@ -1,0 +1,180 @@
+{
+  "info": {
+    "_postman_id": "20ea99d4-5236-4cf9-978e-54a60195248d",
+    "name": "Salesforce Service Cloud Salesforce Chat REST Accounts Query API",
+    "description": "REST API for managing live chat sessions between agents and visitors in Salesforce Service Cloud. Enables initiating chat sessions, sending and receiving messages, and monitoring chat activity.\n\nContact Support:\n Name: Salesforce Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:50:45.000Z",
+    "updatedAt": "2026-07-28T02:50:45.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-20ea99d4-5236-4cf9-978e-54a60195248d"
+  },
+  "item": [
+    {
+      "name": "query",
+      "item": [
+        {
+          "name": "Salesforce Service Cloud Execute a SOQL query",
+          "id": "963eba94-f0d0-47a4-82e4-96b5ce0c2884",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/query?q=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "query"
+              ],
+              "query": [
+                {
+                  "description": "(Required) SOQL query string",
+                  "key": "q",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Executes a SOQL query against service cloud objects and returns matching records."
+          },
+          "response": [
+            {
+              "id": "a206e6b3-4cff-4fb0-aaec-c22584cfbd4d",
+              "name": "Query results",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-LIVEAGENT-API-VERSION",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/query?q=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "query"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) SOQL query string",
+                      "key": "q",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"totalSize\": \"<integer>\",\n  \"done\": \"<boolean>\"\n}",
+              "createdAt": "2026-07-28T02:50:46.000Z",
+              "updatedAt": "2026-07-28T02:50:46.000Z",
+              "uid": "35240-a206e6b3-4cff-4fb0-aaec-c22584cfbd4d"
+            },
+            {
+              "id": "57513e97-4adc-4e4e-90b9-905aecf121d3",
+              "name": "Invalid SOQL query",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-LIVEAGENT-API-VERSION",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/query?q=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "query"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) SOQL query string",
+                      "key": "q",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T02:50:46.000Z",
+              "updatedAt": "2026-07-28T02:50:46.000Z",
+              "uid": "35240-57513e97-4adc-4e4e-90b9-905aecf121d3"
+            }
+          ],
+          "createdAt": "2026-07-28T02:50:46.000Z",
+          "updatedAt": "2026-07-28T02:50:46.000Z",
+          "uid": "35240-963eba94-f0d0-47a4-82e4-96b5ce0c2884"
+        }
+      ],
+      "id": "25ffe415-898b-4819-98cb-d6ec41450791",
+      "createdAt": "2026-07-28T02:50:46.000Z",
+      "updatedAt": "2026-07-28T02:50:46.000Z",
+      "uid": "35240-25ffe415-898b-4819-98cb-d6ec41450791"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-LIVEAGENT-API-VERSION",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "hostname",
+      "value": "d.la1-c1-ia4.salesforceliveagent.com"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{hostname}}/chat/rest"
+    }
+  ]
+}

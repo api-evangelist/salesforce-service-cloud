@@ -1,0 +1,32 @@
+{
+  "provider": "salesforce-service-cloud",
+  "sources": [
+    "salesforce-service-cloud-accounts-api-openapi.yml",
+    "salesforce-service-cloud-availability-api-openapi.yml",
+    "salesforce-service-cloud-cases-api-openapi.yml",
+    "salesforce-service-cloud-contacts-api-openapi.yml",
+    "salesforce-service-cloud-knowledge-api-openapi.yml",
+    "salesforce-service-cloud-messages-api-openapi.yml",
+    "salesforce-service-cloud-query-api-openapi.yml",
+    "salesforce-service-cloud-search-api-openapi.yml",
+    "salesforce-service-cloud-sessions-api-openapi.yml",
+    "salesforce-service-cloud-settings-api-openapi.yml"
+  ],
+  "outputs": [
+    "salesforce-service-cloud-accounts-api-openapi.yml",
+    "salesforce-service-cloud-availability-api-openapi.yml",
+    "salesforce-service-cloud-cases-api-openapi.yml",
+    "salesforce-service-cloud-contacts-api-openapi.yml",
+    "salesforce-service-cloud-knowledge-api-openapi.yml",
+    "salesforce-service-cloud-messages-api-openapi.yml",
+    "salesforce-service-cloud-query-api-openapi.yml",
+    "salesforce-service-cloud-search-api-openapi.yml",
+    "salesforce-service-cloud-sessions-api-openapi.yml",
+    "salesforce-service-cloud-settings-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

@@ -1,0 +1,440 @@
+openapi: 3.1.0
+info:
+  title: Salesforce Service Cloud REST API
+  description: >-
+    RESTful API for managing customer service operations in Salesforce
+    Service Cloud, including cases, contacts, accounts, knowledge articles,
+    and other service-related objects via the sObject framework.
+  version: '59.0'
+  contact:
+    name: Salesforce Developer Support
+    url: https://developer.salesforce.com/support
+  termsOfService: https://www.salesforce.com/company/legal/agreements/
+externalDocs:
+  description: REST API Developer Guide
+  url: https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/
+servers:
+  - url: https://{instance}.salesforce.com/services/data/v59.0
+    description: Salesforce Production Instance
+    variables:
+      instance:
+        default: yourInstance
+        description: Your Salesforce instance identifier
+tags:
+  - name: Accounts
+    description: Operations for managing account records
+  - name: Cases
+    description: Operations for managing customer service cases
+  - name: Contacts
+    description: Operations for managing contact records
+  - name: Knowledge
+    description: Operations for managing knowledge articles
+  - name: Query
+    description: SOQL query operations
+  - name: Search
+    description: SOSL search operations
+security:
+  - oauth2: []
+  - bearerAuth: []
+paths:
+  /sobjects/Case:
+    get:
+      operationId: getCaseInfo
+      summary: Salesforce Service Cloud Get Case object metadata
+      description: >-
+        Retrieves basic metadata and recently created cases for the Case
+        sObject type.
+      tags:
+        - Cases
+      responses:
+        '200':
+          description: Case object metadata and recent records
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SObjectBasicInfo'
+        '401':
+          description: Unauthorized - invalid or expired session
+    post:
+      operationId: createCase
+      summary: Salesforce Service Cloud Create a new case
+      description: >-
+        Creates a new case record with the specified field values for
+        tracking customer service issues.
+      tags:
+        - Cases
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaseInput'
+      responses:
+        '201':
+          description: Case created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateResponse'
+        '400':
+          description: Invalid request - missing required fields or validation error
+        '401':
+          description: Unauthorized
+  /sobjects/Case/{caseId}:
+    get:
+      operationId: getCaseById
+      summary: Salesforce Service Cloud Get a case by ID
+      description: >-
+        Retrieves a single case record by its Salesforce ID, including
+        all accessible fields.
+      tags:
+        - Cases
+      parameters:
+        - $ref: '#/components/parameters/CaseId'
+      responses:
+        '200':
+          description: Case record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Case'
+        '404':
+          description: Case not found
+    patch:
+      operationId: updateCase
+      summary: Salesforce Service Cloud Update a case
+      description: >-
+        Updates specified fields on an existing case record.
+      tags:
+        - Cases
+      parameters:
+        - $ref: '#/components/parameters/CaseId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaseInput'
+      responses:
+        '204':
+          description: Case updated successfully
+        '400':
+          description: Validation error
+        '404':
+          description: Case not found
+    delete:
+      operationId: deleteCase
+      summary: Salesforce Service Cloud Delete a case
+      description: >-
+        Deletes a case record by its Salesforce ID.
+      tags:
+        - Cases
+      parameters:
+        - $ref: '#/components/parameters/CaseId'
+      responses:
+        '204':
+          description: Case deleted successfully
+        '404':
+          description: Case not found
+  /sobjects/Contact:
+    get:
+      operationId: getContactInfo
+      summary: Salesforce Service Cloud Get Contact object metadata
+      description: >-
+        Retrieves basic metadata and recently created contacts for the
+        Contact sObject type.
+      tags:
+        - Contacts
+      responses:
+        '200':
+          description: Contact object metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SObjectBasicInfo'
+    post:
+      operationId: createContact
+      summary: Salesforce Service Cloud Create a new contact
+      description: >-
+        Creates a new contact record associated with customer service
+        interactions.
+      tags:
+        - Contacts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactInput'
+      responses:
+        '201':
+          description: Contact created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateResponse'
+  /sobjects/Account:
+    get:
+      operationId: getAccountInfo
+      summary: Salesforce Service Cloud Get Account object metadata
+      description: >-
+        Retrieves basic metadata and recently created accounts for the
+        Account sObject type.
+      tags:
+        - Accounts
+      responses:
+        '200':
+          description: Account object metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SObjectBasicInfo'
+  /sobjects/Knowledge__kav:
+    get:
+      operationId: getKnowledgeArticleInfo
+      summary: Salesforce Service Cloud Get Knowledge Article metadata
+      description: >-
+        Retrieves metadata for knowledge articles used in the service
+        knowledge base.
+      tags:
+        - Knowledge
+      responses:
+        '200':
+          description: Knowledge article metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SObjectBasicInfo'
+  /query:
+    get:
+      operationId: executeQuery
+      summary: Salesforce Service Cloud Execute a SOQL query
+      description: >-
+        Executes a SOQL query against service cloud objects and returns
+        matching records.
+      tags:
+        - Query
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: SOQL query string
+          schema:
+            type: string
+            example: SELECT Id, Subject, Status FROM Case WHERE Status = 'New'
+      responses:
+        '200':
+          description: Query results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResult'
+        '400':
+          description: Invalid SOQL query
+  /search:
+    get:
+      operationId: executeSearch
+      summary: Salesforce Service Cloud Execute a SOSL search
+      description: >-
+        Executes a SOSL search across service cloud objects and returns
+        matching records.
+      tags:
+        - Search
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: SOSL search string
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResult'
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.salesforce.com/services/oauth2/authorize
+          tokenUrl: https://login.salesforce.com/services/oauth2/token
+          scopes:
+            api: Access Salesforce REST API
+            full: Full access
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: OAuth2
+  parameters:
+    CaseId:
+      name: caseId
+      in: path
+      required: true
+      description: The Salesforce ID of the case
+      schema:
+        type: string
+        pattern: '^[a-zA-Z0-9]{15,18}$'
+  schemas:
+    Case:
+      type: object
+      properties:
+        Id:
+          type: string
+          description: Unique Salesforce record identifier
+        CaseNumber:
+          type: string
+          description: Auto-generated case number
+        Subject:
+          type: string
+          description: Brief description of the case
+        Description:
+          type: string
+          description: Detailed description of the customer issue
+        Status:
+          type: string
+          description: Current status of the case
+          enum:
+            - New
+            - Working
+            - Escalated
+            - Closed
+        Priority:
+          type: string
+          description: Priority level of the case
+          enum:
+            - High
+            - Medium
+            - Low
+        Origin:
+          type: string
+          description: Source channel of the case
+          enum:
+            - Phone
+            - Email
+            - Web
+            - Chat
+        Type:
+          type: string
+          description: Type of case
+        ContactId:
+          type: string
+          description: ID of the associated contact
+        AccountId:
+          type: string
+          description: ID of the associated account
+        OwnerId:
+          type: string
+          description: ID of the case owner
+        CreatedDate:
+          type: string
+          format: date-time
+          description: Date and time the case was created
+        ClosedDate:
+          type: string
+          format: date-time
+          description: Date and time the case was closed
+        IsClosed:
+          type: boolean
+          description: Whether the case is closed
+        IsEscalated:
+          type: boolean
+          description: Whether the case has been escalated
+    CaseInput:
+      type: object
+      properties:
+        Subject:
+          type: string
+          description: Brief description of the case
+        Description:
+          type: string
+          description: Detailed description of the customer issue
+        Status:
+          type: string
+          description: Current status of the case
+        Priority:
+          type: string
+          description: Priority level
+        Origin:
+          type: string
+          description: Source channel
+        Type:
+          type: string
+          description: Type of case
+        ContactId:
+          type: string
+          description: ID of the associated contact
+        AccountId:
+          type: string
+          description: ID of the associated account
+    ContactInput:
+      type: object
+      properties:
+        FirstName:
+          type: string
+          description: Contact first name
+        LastName:
+          type: string
+          description: Contact last name
+        Email:
+          type: string
+          format: email
+          description: Contact email address
+        Phone:
+          type: string
+          description: Contact phone number
+        AccountId:
+          type: string
+          description: ID of the associated account
+      required:
+        - LastName
+    CreateResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the created record
+        success:
+          type: boolean
+          description: Whether the operation succeeded
+        errors:
+          type: array
+          items:
+            type: object
+          description: List of errors if any
+    SObjectBasicInfo:
+      type: object
+      properties:
+        objectDescribe:
+          type: object
+          description: Object metadata
+        recentItems:
+          type: array
+          items:
+            type: object
+          description: Recently created or updated records
+    QueryResult:
+      type: object
+      properties:
+        totalSize:
+          type: integer
+          description: Total number of matching records
+        done:
+          type: boolean
+          description: Whether all results are returned
+        records:
+          type: array
+          items:
+            type: object
+          description: Array of matching records
+    SearchResult:
+      type: object
+      properties:
+        searchRecords:
+          type: array
+          items:
+            type: object
+          description: Array of matching records

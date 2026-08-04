@@ -1,0 +1,331 @@
+openapi: 3.1.0
+info:
+  title: Salesforce Service Cloud Salesforce Chat REST API
+  description: >-
+    REST API for managing live chat sessions between agents and visitors
+    in Salesforce Service Cloud. Enables initiating chat sessions,
+    sending and receiving messages, and monitoring chat activity.
+  version: '59.0'
+  contact:
+    name: Salesforce Developer Support
+    url: https://developer.salesforce.com/support
+  termsOfService: https://www.salesforce.com/company/legal/agreements/
+externalDocs:
+  description: Chat REST API Developer Guide
+  url: https://developer.salesforce.com/docs/atlas.en-us.live_agent_rest.meta/live_agent_rest/
+servers:
+  - url: https://{hostname}/chat/rest
+    description: Chat REST API Endpoint
+    variables:
+      hostname:
+        default: d.la1-c1-ia4.salesforceliveagent.com
+        description: Your Live Agent endpoint hostname
+tags:
+  - name: Availability
+    description: Agent availability and routing
+  - name: Messages
+    description: Chat message operations
+  - name: Sessions
+    description: Chat session lifecycle management
+  - name: Settings
+    description: Chat deployment settings
+security:
+  - apiKey: []
+paths:
+  /System/SessionId:
+    get:
+      operationId: getSessionId
+      summary: Salesforce Service Cloud Get a new session ID
+      description: >-
+        Generates a unique session ID and key to establish a new chat
+        session. This must be the first request made for every new chat.
+      tags:
+        - Sessions
+      parameters:
+        - $ref: '#/components/parameters/AffinityToken'
+      responses:
+        '200':
+          description: Session ID and key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionIdResponse'
+        '403':
+          description: Invalid API version or configuration
+  /Chasitor/ChasitorInit:
+    post:
+      operationId: initiateChatSession
+      summary: Salesforce Service Cloud Initiate a chat session
+      description: >-
+        Initiates a new chat request from a visitor, placing them in the
+        queue for an available agent.
+      tags:
+        - Sessions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChasitorInit'
+      responses:
+        '200':
+          description: Chat session initiated
+        '400':
+          description: Invalid request parameters
+        '503':
+          description: No agents available
+  /System/Messages:
+    get:
+      operationId: getMessages
+      summary: Salesforce Service Cloud Get chat messages
+      description: >-
+        Returns all messages sent between agents and chat visitors
+        during a chat session, including system messages and events.
+      tags:
+        - Messages
+      parameters:
+        - $ref: '#/components/parameters/SessionKey'
+        - $ref: '#/components/parameters/AffinityToken'
+      responses:
+        '200':
+          description: Chat messages
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessagesResponse'
+        '403':
+          description: Invalid session
+  /Chasitor/ChatMessage:
+    post:
+      operationId: sendChatMessage
+      summary: Salesforce Service Cloud Send a chat message
+      description: >-
+        Sends a chat message from the visitor to the agent during an
+        active chat session.
+      tags:
+        - Messages
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatMessageRequest'
+      responses:
+        '200':
+          description: Message sent successfully
+        '403':
+          description: Invalid session or chat ended
+  /Visitor/Availability:
+    get:
+      operationId: checkAvailability
+      summary: Salesforce Service Cloud Check agent availability
+      description: >-
+        Indicates whether a chat button is available to receive new
+        chat requests based on agent availability and routing rules.
+      tags:
+        - Availability
+      parameters:
+        - name: org_id
+          in: query
+          required: true
+          description: Salesforce organization ID
+          schema:
+            type: string
+        - name: deployment_id
+          in: query
+          required: true
+          description: Chat deployment ID
+          schema:
+            type: string
+        - name: Availability.ids
+          in: query
+          required: true
+          description: Comma-separated chat button IDs
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Availability status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvailabilityResponse'
+  /Visitor/Settings:
+    get:
+      operationId: getSettings
+      summary: Salesforce Service Cloud Get deployment settings
+      description: >-
+        Retrieves settings and configuration for a chat deployment,
+        used to initialize the chat client.
+      tags:
+        - Settings
+      parameters:
+        - name: org_id
+          in: query
+          required: true
+          description: Salesforce organization ID
+          schema:
+            type: string
+        - name: deployment_id
+          in: query
+          required: true
+          description: Chat deployment ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deployment settings
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettingsResponse'
+  /Chasitor/ChatEnd:
+    post:
+      operationId: endChat
+      summary: Salesforce Service Cloud End a chat session
+      description: >-
+        Ends the current chat session from the visitor side.
+      tags:
+        - Sessions
+      responses:
+        '200':
+          description: Chat ended successfully
+        '403':
+          description: Invalid session
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-LIVEAGENT-API-VERSION
+      description: Live Agent API version header
+  parameters:
+    SessionKey:
+      name: X-LIVEAGENT-SESSION-KEY
+      in: header
+      required: true
+      description: The session key from the SessionId response
+      schema:
+        type: string
+    AffinityToken:
+      name: X-LIVEAGENT-AFFINITY
+      in: header
+      required: true
+      description: Affinity token for session routing
+      schema:
+        type: string
+  schemas:
+    SessionIdResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique session ID
+        key:
+          type: string
+          description: The session key for subsequent requests
+        affinityToken:
+          type: string
+          description: Token for maintaining session affinity
+        clientPollTimeout:
+          type: integer
+          description: Recommended polling interval in seconds
+    ChasitorInit:
+      type: object
+      required:
+        - organizationId
+        - deploymentId
+        - buttonId
+        - sessionId
+        - visitorName
+      properties:
+        organizationId:
+          type: string
+          description: Salesforce organization ID
+        deploymentId:
+          type: string
+          description: Chat deployment ID
+        buttonId:
+          type: string
+          description: Chat button ID
+        sessionId:
+          type: string
+          description: Session ID from SessionId request
+        visitorName:
+          type: string
+          description: Display name of the visitor
+        prechatDetails:
+          type: array
+          items:
+            type: object
+          description: Pre-chat form field values
+    MessagesResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatMessage'
+          description: Array of chat messages and events
+    ChatMessage:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type of message
+          enum:
+            - ChatMessage
+            - AgentTyping
+            - ChatEnded
+            - ChatTransferred
+            - AgentNotTyping
+            - ChatEstablished
+        message:
+          type: object
+          properties:
+            text:
+              type: string
+              description: Message text content
+            name:
+              type: string
+              description: Sender name
+    ChatMessageRequest:
+      type: object
+      required:
+        - text
+      properties:
+        text:
+          type: string
+          description: Message text to send
+    AvailabilityResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              message:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Chat button ID
+                        isAvailable:
+                          type: boolean
+                          description: Whether agents are available
+    SettingsResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            type: object
+          description: Settings configuration messages

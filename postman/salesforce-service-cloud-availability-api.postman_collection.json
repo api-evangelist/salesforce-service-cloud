@@ -1,0 +1,171 @@
+{
+  "info": {
+    "_postman_id": "904d01d6-9517-4245-8309-d2fdcb49c243",
+    "name": "Salesforce Service Cloud Salesforce Chat REST Accounts Availability API",
+    "description": "REST API for managing live chat sessions between agents and visitors in Salesforce Service Cloud. Enables initiating chat sessions, sending and receiving messages, and monitoring chat activity.\n\nContact Support:\n Name: Salesforce Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:50:32.000Z",
+    "updatedAt": "2026-07-28T02:50:32.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-904d01d6-9517-4245-8309-d2fdcb49c243"
+  },
+  "item": [
+    {
+      "name": "Visitor",
+      "item": [
+        {
+          "name": "Availability",
+          "item": [
+            {
+              "name": "Salesforce Service Cloud Check agent availability",
+              "id": "4e297110-03a9-4360-b503-d1a02b2391ac",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/Visitor/Availability?org_id=<string>&deployment_id=<string>&Availability.ids=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "Visitor",
+                    "Availability"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Salesforce organization ID",
+                      "key": "org_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Chat deployment ID",
+                      "key": "deployment_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Comma-separated chat button IDs",
+                      "key": "Availability.ids",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Indicates whether a chat button is available to receive new chat requests based on agent availability and routing rules."
+              },
+              "response": [
+                {
+                  "id": "8cff4bc0-a328-4c09-ae9f-6e9a8fa656cf",
+                  "name": "Availability status",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-LIVEAGENT-API-VERSION",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/Visitor/Availability?org_id=<string>&deployment_id=<string>&Availability.ids=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "Visitor",
+                        "Availability"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Salesforce organization ID",
+                          "key": "org_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Chat deployment ID",
+                          "key": "deployment_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Comma-separated chat button IDs",
+                          "key": "Availability.ids",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"messages\": [\n    {\n      \"type\": \"<string>\",\n      \"message\": {\n        \"results\": [\n          {\n            \"id\": \"<string>\",\n            \"isAvailable\": \"<boolean>\"\n          },\n          {\n            \"id\": \"<string>\",\n            \"isAvailable\": \"<boolean>\"\n          }\n        ]\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"message\": {\n        \"results\": [\n          {\n            \"id\": \"<string>\",\n            \"isAvailable\": \"<boolean>\"\n          },\n          {\n            \"id\": \"<string>\",\n            \"isAvailable\": \"<boolean>\"\n          }\n        ]\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T02:50:32.000Z",
+                  "updatedAt": "2026-07-28T02:50:32.000Z",
+                  "uid": "35240-8cff4bc0-a328-4c09-ae9f-6e9a8fa656cf"
+                }
+              ],
+              "createdAt": "2026-07-28T02:50:32.000Z",
+              "updatedAt": "2026-07-28T02:50:32.000Z",
+              "uid": "35240-4e297110-03a9-4360-b503-d1a02b2391ac"
+            }
+          ],
+          "id": "6e338939-494d-44a0-9943-d897bd82c66e",
+          "createdAt": "2026-07-28T02:50:32.000Z",
+          "updatedAt": "2026-07-28T02:50:32.000Z",
+          "uid": "35240-6e338939-494d-44a0-9943-d897bd82c66e"
+        }
+      ],
+      "id": "ce21727f-6e70-488b-9eac-fee05062a474",
+      "createdAt": "2026-07-28T02:50:32.000Z",
+      "updatedAt": "2026-07-28T02:50:32.000Z",
+      "uid": "35240-ce21727f-6e70-488b-9eac-fee05062a474"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-LIVEAGENT-API-VERSION",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "hostname",
+      "value": "d.la1-c1-ia4.salesforceliveagent.com"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{hostname}}/chat/rest"
+    }
+  ]
+}

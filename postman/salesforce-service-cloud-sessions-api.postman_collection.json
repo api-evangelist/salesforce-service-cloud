@@ -1,0 +1,494 @@
+{
+  "info": {
+    "_postman_id": "38f1b479-d7a3-49cf-a309-f7ecb27b176c",
+    "name": "Salesforce Service Cloud Salesforce Chat REST Accounts Sessions API",
+    "description": "REST API for managing live chat sessions between agents and visitors in Salesforce Service Cloud. Enables initiating chat sessions, sending and receiving messages, and monitoring chat activity.\n\nContact Support:\n Name: Salesforce Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:50:47.000Z",
+    "updatedAt": "2026-07-28T02:50:47.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-38f1b479-d7a3-49cf-a309-f7ecb27b176c"
+  },
+  "item": [
+    {
+      "name": "System",
+      "item": [
+        {
+          "name": "SessionId",
+          "item": [
+            {
+              "name": "Salesforce Service Cloud Get a new session ID",
+              "id": "4de55f48-91ef-4f91-90c1-d5527194ec68",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Affinity token for session routing",
+                    "key": "X-LIVEAGENT-AFFINITY",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/System/SessionId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "System",
+                    "SessionId"
+                  ]
+                },
+                "description": "Generates a unique session ID and key to establish a new chat session. This must be the first request made for every new chat."
+              },
+              "response": [
+                {
+                  "id": "93fb6891-48a0-4312-8ab2-5ffe35178af7",
+                  "name": "Session ID and key",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Affinity token for session routing",
+                        "key": "X-LIVEAGENT-AFFINITY",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-LIVEAGENT-API-VERSION",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/System/SessionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "System",
+                        "SessionId"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"key\": \"<string>\",\n  \"affinityToken\": \"<string>\",\n  \"clientPollTimeout\": \"<integer>\"\n}",
+                  "createdAt": "2026-07-28T02:50:48.000Z",
+                  "updatedAt": "2026-07-28T02:50:48.000Z",
+                  "uid": "35240-93fb6891-48a0-4312-8ab2-5ffe35178af7"
+                },
+                {
+                  "id": "1a1ef029-d7b7-4687-9857-c42e85f39cb0",
+                  "name": "Invalid API version or configuration",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Affinity token for session routing",
+                        "key": "X-LIVEAGENT-AFFINITY",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-LIVEAGENT-API-VERSION",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/System/SessionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "System",
+                        "SessionId"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:50:48.000Z",
+                  "updatedAt": "2026-07-28T02:50:48.000Z",
+                  "uid": "35240-1a1ef029-d7b7-4687-9857-c42e85f39cb0"
+                }
+              ],
+              "createdAt": "2026-07-28T02:50:48.000Z",
+              "updatedAt": "2026-07-28T02:50:48.000Z",
+              "uid": "35240-4de55f48-91ef-4f91-90c1-d5527194ec68"
+            }
+          ],
+          "id": "b03eb66d-2e1b-4c6e-b0dc-eaa61a4ac070",
+          "createdAt": "2026-07-28T02:50:48.000Z",
+          "updatedAt": "2026-07-28T02:50:48.000Z",
+          "uid": "35240-b03eb66d-2e1b-4c6e-b0dc-eaa61a4ac070"
+        }
+      ],
+      "id": "d86e4fcc-fcf3-4977-9dd0-d6384058f814",
+      "createdAt": "2026-07-28T02:50:48.000Z",
+      "updatedAt": "2026-07-28T02:50:48.000Z",
+      "uid": "35240-d86e4fcc-fcf3-4977-9dd0-d6384058f814"
+    },
+    {
+      "name": "Chasitor",
+      "item": [
+        {
+          "name": "ChasitorInit",
+          "item": [
+            {
+              "name": "Salesforce Service Cloud Initiate a chat session",
+              "id": "69c9fd0d-3ab4-48d5-b49e-81ffe9ed7981",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organizationId\": \"<string>\",\n  \"deploymentId\": \"<string>\",\n  \"buttonId\": \"<string>\",\n  \"sessionId\": \"<string>\",\n  \"visitorName\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/Chasitor/ChasitorInit",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "Chasitor",
+                    "ChasitorInit"
+                  ]
+                },
+                "description": "Initiates a new chat request from a visitor, placing them in the queue for an available agent."
+              },
+              "response": [
+                {
+                  "id": "5632f855-4015-4c82-a15e-ffd64fb26f9e",
+                  "name": "Chat session initiated",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-LIVEAGENT-API-VERSION",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"organizationId\": \"<string>\",\n  \"deploymentId\": \"<string>\",\n  \"buttonId\": \"<string>\",\n  \"sessionId\": \"<string>\",\n  \"visitorName\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/Chasitor/ChasitorInit",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "Chasitor",
+                        "ChasitorInit"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:50:48.000Z",
+                  "updatedAt": "2026-07-28T02:50:48.000Z",
+                  "uid": "35240-5632f855-4015-4c82-a15e-ffd64fb26f9e"
+                },
+                {
+                  "id": "4544e5fa-a8ad-4b16-8516-449d15baaeb5",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-LIVEAGENT-API-VERSION",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"organizationId\": \"<string>\",\n  \"deploymentId\": \"<string>\",\n  \"buttonId\": \"<string>\",\n  \"sessionId\": \"<string>\",\n  \"visitorName\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/Chasitor/ChasitorInit",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "Chasitor",
+                        "ChasitorInit"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:50:48.000Z",
+                  "updatedAt": "2026-07-28T02:50:48.000Z",
+                  "uid": "35240-4544e5fa-a8ad-4b16-8516-449d15baaeb5"
+                },
+                {
+                  "id": "78983eb9-de0f-4b97-a7df-effb759b2982",
+                  "name": "No agents available",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-LIVEAGENT-API-VERSION",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"organizationId\": \"<string>\",\n  \"deploymentId\": \"<string>\",\n  \"buttonId\": \"<string>\",\n  \"sessionId\": \"<string>\",\n  \"visitorName\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/Chasitor/ChasitorInit",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "Chasitor",
+                        "ChasitorInit"
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:50:48.000Z",
+                  "updatedAt": "2026-07-28T02:50:48.000Z",
+                  "uid": "35240-78983eb9-de0f-4b97-a7df-effb759b2982"
+                }
+              ],
+              "createdAt": "2026-07-28T02:50:48.000Z",
+              "updatedAt": "2026-07-28T02:50:48.000Z",
+              "uid": "35240-69c9fd0d-3ab4-48d5-b49e-81ffe9ed7981"
+            }
+          ],
+          "id": "523856d6-27f5-43b5-903b-bb7746477a92",
+          "createdAt": "2026-07-28T02:50:48.000Z",
+          "updatedAt": "2026-07-28T02:50:48.000Z",
+          "uid": "35240-523856d6-27f5-43b5-903b-bb7746477a92"
+        },
+        {
+          "name": "ChatEnd",
+          "item": [
+            {
+              "name": "Salesforce Service Cloud End a chat session",
+              "id": "e6d3d370-bbda-4b82-be32-40b8c4c902a2",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/Chasitor/ChatEnd",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "Chasitor",
+                    "ChatEnd"
+                  ]
+                },
+                "description": "Ends the current chat session from the visitor side."
+              },
+              "response": [
+                {
+                  "id": "44644eee-f986-487f-8392-1904399ae4cd",
+                  "name": "Chat ended successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-LIVEAGENT-API-VERSION",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/Chasitor/ChatEnd",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "Chasitor",
+                        "ChatEnd"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:50:48.000Z",
+                  "updatedAt": "2026-07-28T02:50:48.000Z",
+                  "uid": "35240-44644eee-f986-487f-8392-1904399ae4cd"
+                },
+                {
+                  "id": "bc09e6c9-f714-4ee9-a8bc-47dc75bd4ae2",
+                  "name": "Invalid session",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-LIVEAGENT-API-VERSION",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/Chasitor/ChatEnd",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "Chasitor",
+                        "ChatEnd"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:50:48.000Z",
+                  "updatedAt": "2026-07-28T02:50:48.000Z",
+                  "uid": "35240-bc09e6c9-f714-4ee9-a8bc-47dc75bd4ae2"
+                }
+              ],
+              "createdAt": "2026-07-28T02:50:48.000Z",
+              "updatedAt": "2026-07-28T02:50:48.000Z",
+              "uid": "35240-e6d3d370-bbda-4b82-be32-40b8c4c902a2"
+            }
+          ],
+          "id": "b6455638-b52a-4148-987a-ae4bcc25e7f2",
+          "createdAt": "2026-07-28T02:50:48.000Z",
+          "updatedAt": "2026-07-28T02:50:48.000Z",
+          "uid": "35240-b6455638-b52a-4148-987a-ae4bcc25e7f2"
+        }
+      ],
+      "id": "586f3257-4849-4db7-9aa1-3dc65eef58a5",
+      "createdAt": "2026-07-28T02:50:48.000Z",
+      "updatedAt": "2026-07-28T02:50:48.000Z",
+      "uid": "35240-586f3257-4849-4db7-9aa1-3dc65eef58a5"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-LIVEAGENT-API-VERSION",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "hostname",
+      "value": "d.la1-c1-ia4.salesforceliveagent.com"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{hostname}}/chat/rest"
+    }
+  ]
+}
