@@ -508,8 +508,6 @@ common:
   url: json-ld/salesforce-service-cloud-context.jsonld
 - type: SpectralRules
   url: rules/salesforce-service-cloud-rules.yml
-- type: Capabilities
-  url: capabilities/case-management.yaml
 - type: Vocabulary
   url: vocabulary/salesforce-service-cloud-vocabulary.yml
 maintainers:
