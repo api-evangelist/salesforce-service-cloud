@@ -19,7 +19,7 @@ image: https://www.salesforce.com/content/dam/web/en_us/www/images/service/servi
 url: https://www.salesforce.com/service-cloud/
 created: '2024'
 modified: '2026-05-19'
-specificationVersion: '0.18'
+specificationVersion: '0.23'
 tags:
 - Case Management
 - CRM
