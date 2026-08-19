@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Salesforce Service Cloud Salesforce Chat REST Accounts Messages API",
+    "version": "59.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-LIVEAGENT-API-VERSION",
+      "value": "{{X-LIVEAGENT-API-VERSION}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Messages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Salesforce Service Cloud Get chat messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{hostname}/chat/rest/System/Messages",
+            "headers": [
+              {
+                "name": "X-LIVEAGENT-SESSION-KEY",
+                "value": ""
+              },
+              {
+                "name": "X-LIVEAGENT-AFFINITY",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Returns all messages sent between agents and chat visitors during a chat session, including system messages and events."
+        },
+        {
+          "info": {
+            "name": "Salesforce Service Cloud Send a chat message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{hostname}/chat/rest/Chasitor/ChatMessage",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a chat message from the visitor to the agent during an active chat session."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

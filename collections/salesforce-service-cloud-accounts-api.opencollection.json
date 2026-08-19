@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Salesforce Service Cloud Salesforce Chat REST Accounts API",
+    "version": "59.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-LIVEAGENT-API-VERSION",
+      "value": "{{X-LIVEAGENT-API-VERSION}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Salesforce Service Cloud Get Account object metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{hostname}/chat/rest/sobjects/Account"
+          },
+          "docs": "Retrieves basic metadata and recently created accounts for the Account sObject type."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

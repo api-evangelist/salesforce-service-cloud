@@ -1,0 +1,397 @@
+{
+  "item": [
+    {
+      "id": "a420ba9b-c59b-4782-a0b1-04b8accbebce",
+      "name": "Messages",
+      "description": {
+        "content": "Chat message operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c236fb7e-a4a9-43b4-a360-fbef5cd2194e",
+          "name": "Salesforce Service Cloud Get chat messages",
+          "request": {
+            "name": "Salesforce Service Cloud Get chat messages",
+            "description": {
+              "content": "Returns all messages sent between agents and chat visitors during a chat session, including system messages and events.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "System",
+                "Messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Live Agent endpoint hostname",
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The session key from the SessionId response",
+                "key": "X-LIVEAGENT-SESSION-KEY",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Affinity token for session routing",
+                "key": "X-LIVEAGENT-AFFINITY",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d0ab6d3b-4a87-4e72-a1df-13800967717e",
+              "name": "Chat messages",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "System",
+                    "Messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Live Agent endpoint hostname",
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-LIVEAGENT-API-VERSION",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The session key from the SessionId response",
+                    "key": "X-LIVEAGENT-SESSION-KEY",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Affinity token for session routing",
+                    "key": "X-LIVEAGENT-AFFINITY",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"messages\": [\n    {\n      \"type\": \"AgentTyping\",\n      \"message\": {\n        \"text\": \"string\",\n        \"name\": \"string\"\n      }\n    },\n    {\n      \"type\": \"ChatEnded\",\n      \"message\": {\n        \"text\": \"string\",\n        \"name\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "25589ed4-f50e-40cb-9213-7f31e161e94a",
+              "name": "Invalid session",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "System",
+                    "Messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Live Agent endpoint hostname",
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-LIVEAGENT-API-VERSION",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The session key from the SessionId response",
+                    "key": "X-LIVEAGENT-SESSION-KEY",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Affinity token for session routing",
+                    "key": "X-LIVEAGENT-AFFINITY",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "99e53054-b7ed-40aa-8a0f-8681d32204e0",
+          "name": "Salesforce Service Cloud Send a chat message",
+          "request": {
+            "name": "Salesforce Service Cloud Send a chat message",
+            "description": {
+              "content": "Sends a chat message from the visitor to the agent during an active chat session.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Chasitor",
+                "ChatMessage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Live Agent endpoint hostname",
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4c27a149-965c-468b-abaa-b2e43cef7446",
+              "name": "Message sent successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Chasitor",
+                    "ChatMessage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Live Agent endpoint hostname",
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-LIVEAGENT-API-VERSION",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8a0779e4-c1f4-477b-9232-38fa7f751a3c",
+              "name": "Invalid session or chat ended",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Chasitor",
+                    "ChatMessage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Live Agent endpoint hostname",
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-LIVEAGENT-API-VERSION",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Live Agent endpoint hostname",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "d.la1-c1-ia4.salesforceliveagent.com",
+      "key": "hostname"
+    },
+    {
+      "type": "string",
+      "value": "https://{{hostname}}/chat/rest",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-LIVEAGENT-API-VERSION"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0571370c-b3fc-40c7-9c0e-e030c8341176",
+    "name": "Salesforce Service Cloud Salesforce Chat REST Accounts Messages API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for managing live chat sessions between agents and visitors in Salesforce Service Cloud. Enables initiating chat sessions, sending and receiving messages, and monitoring chat activity.\n\nContact Support:\n Name: Salesforce Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

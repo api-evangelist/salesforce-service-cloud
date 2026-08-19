@@ -1,0 +1,267 @@
+{
+  "item": [
+    {
+      "id": "048c135c-7a16-4102-9be4-6a0fbbfd8da0",
+      "name": "Contacts",
+      "description": {
+        "content": "Operations for managing contact records",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ead49ffb-e4c5-46d5-b583-3dbc96211801",
+          "name": "Salesforce Service Cloud Get Contact object metadata",
+          "request": {
+            "name": "Salesforce Service Cloud Get Contact object metadata",
+            "description": {
+              "content": "Retrieves basic metadata and recently created contacts for the Contact sObject type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sobjects",
+                "Contact"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Live Agent endpoint hostname",
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d9e178c3-5292-481b-a761-a4848846b9a8",
+              "name": "Contact object metadata",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sobjects",
+                    "Contact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Live Agent endpoint hostname",
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-LIVEAGENT-API-VERSION",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"objectDescribe\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9c159b30-d123-4206-8823-259f7a0a4af2",
+          "name": "Salesforce Service Cloud Create a new contact",
+          "request": {
+            "name": "Salesforce Service Cloud Create a new contact",
+            "description": {
+              "content": "Creates a new contact record associated with customer service interactions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sobjects",
+                "Contact"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Live Agent endpoint hostname",
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"LastName\": \"<string>\",\n  \"FirstName\": \"<string>\",\n  \"Email\": \"<email>\",\n  \"Phone\": \"<string>\",\n  \"AccountId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fa0709d8-d414-43cf-9de3-bf5acb9b694e",
+              "name": "Contact created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sobjects",
+                    "Contact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Live Agent endpoint hostname",
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-LIVEAGENT-API-VERSION",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"LastName\": \"<string>\",\n  \"FirstName\": \"<string>\",\n  \"Email\": \"<email>\",\n  \"Phone\": \"<string>\",\n  \"AccountId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"success\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Live Agent endpoint hostname",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "d.la1-c1-ia4.salesforceliveagent.com",
+      "key": "hostname"
+    },
+    {
+      "type": "string",
+      "value": "https://{{hostname}}/chat/rest",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-LIVEAGENT-API-VERSION"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ec5ca871-03e7-45a4-b083-33d404cbdc81",
+    "name": "Salesforce Service Cloud Salesforce Chat REST Accounts Contacts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for managing live chat sessions between agents and visitors in Salesforce Service Cloud. Enables initiating chat sessions, sending and receiving messages, and monitoring chat activity.\n\nContact Support:\n Name: Salesforce Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

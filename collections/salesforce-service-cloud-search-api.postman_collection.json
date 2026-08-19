@@ -1,0 +1,162 @@
+{
+  "item": [
+    {
+      "id": "35a74de3-5d3f-4ae1-81f8-d7793cbe980a",
+      "name": "Search",
+      "description": {
+        "content": "SOSL search operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "81460132-8f4c-4508-ac2b-531b989275d8",
+          "name": "Salesforce Service Cloud Execute a SOSL search",
+          "request": {
+            "name": "Salesforce Service Cloud Execute a SOSL search",
+            "description": {
+              "content": "Executes a SOSL search across service cloud objects and returns matching records.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "(Required) SOSL search string"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Your Live Agent endpoint hostname",
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4036259c-1229-4ce6-953f-03bde4b64f6a",
+              "name": "Search results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Live Agent endpoint hostname",
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-LIVEAGENT-API-VERSION",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Live Agent endpoint hostname",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "d.la1-c1-ia4.salesforceliveagent.com",
+      "key": "hostname"
+    },
+    {
+      "type": "string",
+      "value": "https://{{hostname}}/chat/rest",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-LIVEAGENT-API-VERSION"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7cd5400f-519d-4e27-b0d6-bd5b2eb83e86",
+    "name": "Salesforce Service Cloud Salesforce Chat REST Accounts Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for managing live chat sessions between agents and visitors in Salesforce Service Cloud. Enables initiating chat sessions, sending and receiving messages, and monitoring chat activity.\n\nContact Support:\n Name: Salesforce Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

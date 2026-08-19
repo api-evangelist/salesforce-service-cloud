@@ -1,0 +1,184 @@
+{
+  "item": [
+    {
+      "id": "8390ae79-0386-40f4-8f93-acc910170e02",
+      "name": "Availability",
+      "description": {
+        "content": "Agent availability and routing",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4b584a12-652d-4d69-9060-08639430e22f",
+          "name": "Salesforce Service Cloud Check agent availability",
+          "request": {
+            "name": "Salesforce Service Cloud Check agent availability",
+            "description": {
+              "content": "Indicates whether a chat button is available to receive new chat requests based on agent availability and routing rules.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Visitor",
+                "Availability"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "org_id",
+                  "value": "<string>",
+                  "description": "(Required) Salesforce organization ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "deployment_id",
+                  "value": "<string>",
+                  "description": "(Required) Chat deployment ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "Availability.ids",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated chat button IDs"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Your Live Agent endpoint hostname",
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7080abb6-9b4c-4b19-b58f-6baadda661ec",
+              "name": "Availability status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Visitor",
+                    "Availability"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "org_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deployment_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Availability.ids",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Live Agent endpoint hostname",
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-LIVEAGENT-API-VERSION",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"messages\": [\n    {\n      \"type\": \"string\",\n      \"message\": {\n        \"results\": [\n          {\n            \"id\": \"string\",\n            \"isAvailable\": false\n          },\n          {\n            \"id\": \"string\",\n            \"isAvailable\": false\n          }\n        ]\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"message\": {\n        \"results\": [\n          {\n            \"id\": \"string\",\n            \"isAvailable\": true\n          },\n          {\n            \"id\": \"string\",\n            \"isAvailable\": true\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Live Agent endpoint hostname",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "d.la1-c1-ia4.salesforceliveagent.com",
+      "key": "hostname"
+    },
+    {
+      "type": "string",
+      "value": "https://{{hostname}}/chat/rest",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-LIVEAGENT-API-VERSION"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5ec7cf6e-1db6-41a3-b8ff-ba27c451adf2",
+    "name": "Salesforce Service Cloud Salesforce Chat REST Accounts Availability API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for managing live chat sessions between agents and visitors in Salesforce Service Cloud. Enables initiating chat sessions, sending and receiving messages, and monitoring chat activity.\n\nContact Support:\n Name: Salesforce Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

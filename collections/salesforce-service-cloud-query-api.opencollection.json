@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Salesforce Service Cloud Salesforce Chat REST Accounts Query API",
+    "version": "59.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-LIVEAGENT-API-VERSION",
+      "value": "{{X-LIVEAGENT-API-VERSION}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Query",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Salesforce Service Cloud Execute a SOQL query",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{hostname}/chat/rest/query",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "SOQL query string"
+              }
+            ]
+          },
+          "docs": "Executes a SOQL query against service cloud objects and returns matching records."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

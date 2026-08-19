@@ -1,0 +1,69 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Salesforce Service Cloud Salesforce Chat REST Accounts Sessions API",
+    "version": "59.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-LIVEAGENT-API-VERSION",
+      "value": "{{X-LIVEAGENT-API-VERSION}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Salesforce Service Cloud Get a new session ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{hostname}/chat/rest/System/SessionId",
+            "headers": [
+              {
+                "name": "X-LIVEAGENT-AFFINITY",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Generates a unique session ID and key to establish a new chat session. This must be the first request made for every new chat."
+        },
+        {
+          "info": {
+            "name": "Salesforce Service Cloud Initiate a chat session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{hostname}/chat/rest/Chasitor/ChasitorInit",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates a new chat request from a visitor, placing them in the queue for an available agent."
+        },
+        {
+          "info": {
+            "name": "Salesforce Service Cloud End a chat session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{hostname}/chat/rest/Chasitor/ChatEnd"
+          },
+          "docs": "Ends the current chat session from the visitor side."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

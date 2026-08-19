@@ -1,0 +1,52 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Salesforce Service Cloud Salesforce Chat REST Accounts Contacts API",
+    "version": "59.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-LIVEAGENT-API-VERSION",
+      "value": "{{X-LIVEAGENT-API-VERSION}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contacts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Salesforce Service Cloud Get Contact object metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{hostname}/chat/rest/sobjects/Contact"
+          },
+          "docs": "Retrieves basic metadata and recently created contacts for the Contact sObject type."
+        },
+        {
+          "info": {
+            "name": "Salesforce Service Cloud Create a new contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{hostname}/chat/rest/sobjects/Contact",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new contact record associated with customer service interactions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

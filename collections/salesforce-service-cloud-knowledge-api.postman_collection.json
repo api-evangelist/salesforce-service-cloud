@@ -1,0 +1,152 @@
+{
+  "item": [
+    {
+      "id": "bcd9bb48-8645-4c07-a437-ecb8c6e4e042",
+      "name": "Knowledge",
+      "description": {
+        "content": "Operations for managing knowledge articles",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "16c98988-0e21-48e3-88a9-f501e65540f6",
+          "name": "Salesforce Service Cloud Get Knowledge Article metadata",
+          "request": {
+            "name": "Salesforce Service Cloud Get Knowledge Article metadata",
+            "description": {
+              "content": "Retrieves metadata for knowledge articles used in the service knowledge base.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sobjects",
+                "Knowledge__kav"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Live Agent endpoint hostname",
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dc79b7cb-152b-4321-a372-d748dcdff6a3",
+              "name": "Knowledge article metadata",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sobjects",
+                    "Knowledge__kav"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Live Agent endpoint hostname",
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-LIVEAGENT-API-VERSION",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"objectDescribe\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Live Agent endpoint hostname",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "d.la1-c1-ia4.salesforceliveagent.com",
+      "key": "hostname"
+    },
+    {
+      "type": "string",
+      "value": "https://{{hostname}}/chat/rest",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-LIVEAGENT-API-VERSION"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "23195c27-0806-44a0-bb94-6edd155e458f",
+    "name": "Salesforce Service Cloud Salesforce Chat REST Accounts Knowledge API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for managing live chat sessions between agents and visitors in Salesforce Service Cloud. Enables initiating chat sessions, sending and receiving messages, and monitoring chat activity.\n\nContact Support:\n Name: Salesforce Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

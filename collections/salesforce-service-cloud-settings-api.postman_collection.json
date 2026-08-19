@@ -1,0 +1,174 @@
+{
+  "item": [
+    {
+      "id": "525baa66-8c8d-48d9-839e-d3b5cdf63935",
+      "name": "Settings",
+      "description": {
+        "content": "Chat deployment settings",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ae9260cf-4855-4e55-b387-01de040b0b6e",
+          "name": "Salesforce Service Cloud Get deployment settings",
+          "request": {
+            "name": "Salesforce Service Cloud Get deployment settings",
+            "description": {
+              "content": "Retrieves settings and configuration for a chat deployment, used to initialize the chat client.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Visitor",
+                "Settings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "org_id",
+                  "value": "<string>",
+                  "description": "(Required) Salesforce organization ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "deployment_id",
+                  "value": "<string>",
+                  "description": "(Required) Chat deployment ID"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Your Live Agent endpoint hostname",
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fee2a322-8bdf-48b7-9795-8f47857e2fd2",
+              "name": "Deployment settings",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Visitor",
+                    "Settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "org_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deployment_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Live Agent endpoint hostname",
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-LIVEAGENT-API-VERSION",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Live Agent endpoint hostname",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "d.la1-c1-ia4.salesforceliveagent.com",
+      "key": "hostname"
+    },
+    {
+      "type": "string",
+      "value": "https://{{hostname}}/chat/rest",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-LIVEAGENT-API-VERSION"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e792fc7f-2a5b-4575-8ddf-d46e93ccdc40",
+    "name": "Salesforce Service Cloud Salesforce Chat REST Accounts Settings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for managing live chat sessions between agents and visitors in Salesforce Service Cloud. Enables initiating chat sessions, sending and receiving messages, and monitoring chat activity.\n\nContact Support:\n Name: Salesforce Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

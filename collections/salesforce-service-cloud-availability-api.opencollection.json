@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Salesforce Service Cloud Salesforce Chat REST Accounts Availability API",
+    "version": "59.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-LIVEAGENT-API-VERSION",
+      "value": "{{X-LIVEAGENT-API-VERSION}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Availability",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Salesforce Service Cloud Check agent availability",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{hostname}/chat/rest/Visitor/Availability",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "query",
+                "description": "Salesforce organization ID"
+              },
+              {
+                "name": "deployment_id",
+                "value": "",
+                "type": "query",
+                "description": "Chat deployment ID"
+              },
+              {
+                "name": "Availability.ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated chat button IDs"
+              }
+            ]
+          },
+          "docs": "Indicates whether a chat button is available to receive new chat requests based on agent availability and routing rules."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

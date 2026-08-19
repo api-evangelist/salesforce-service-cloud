@@ -1,0 +1,113 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Salesforce Service Cloud Salesforce Chat REST Accounts Cases API",
+    "version": "59.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-LIVEAGENT-API-VERSION",
+      "value": "{{X-LIVEAGENT-API-VERSION}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cases",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Salesforce Service Cloud Get Case object metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{hostname}/chat/rest/sobjects/Case"
+          },
+          "docs": "Retrieves basic metadata and recently created cases for the Case sObject type."
+        },
+        {
+          "info": {
+            "name": "Salesforce Service Cloud Create a new case",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{hostname}/chat/rest/sobjects/Case",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new case record with the specified field values for tracking customer service issues."
+        },
+        {
+          "info": {
+            "name": "Salesforce Service Cloud Get a case by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{hostname}/chat/rest/sobjects/Case/:caseId",
+            "params": [
+              {
+                "name": "caseId",
+                "value": "",
+                "type": "path",
+                "description": "The Salesforce ID of the case"
+              }
+            ]
+          },
+          "docs": "Retrieves a single case record by its Salesforce ID, including all accessible fields."
+        },
+        {
+          "info": {
+            "name": "Salesforce Service Cloud Update a case",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{hostname}/chat/rest/sobjects/Case/:caseId",
+            "params": [
+              {
+                "name": "caseId",
+                "value": "",
+                "type": "path",
+                "description": "The Salesforce ID of the case"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates specified fields on an existing case record."
+        },
+        {
+          "info": {
+            "name": "Salesforce Service Cloud Delete a case",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{hostname}/chat/rest/sobjects/Case/:caseId",
+            "params": [
+              {
+                "name": "caseId",
+                "value": "",
+                "type": "path",
+                "description": "The Salesforce ID of the case"
+              }
+            ]
+          },
+          "docs": "Deletes a case record by its Salesforce ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
