@@ -51,6 +51,11 @@ apis:
   humanURL: https://developer.salesforce.com/docs/atlas.en-us.api_streaming.meta/api_streaming/
   baseURL: https://yourInstance.salesforce.com/cometd/59.0/
   tags:
+  - Event
+  - Push Notifications
+  - Real-Time
+  - Streaming
+  tags_raw:
   - Events
   - Push Notifications
   - Real-Time
@@ -86,6 +91,11 @@ apis:
   humanURL: https://developer.salesforce.com/docs/atlas.en-us.bot_cookbook.meta/bot_cookbook/
   baseURL: https://yourInstance.salesforce.com/services/data/v59.0/einstein/bots/
   tags:
+  - Artificial Intelligence
+  - Automation
+  - Chatbots
+  - Einstein
+  tags_raw:
   - AI
   - Automation
   - Chatbot
@@ -106,6 +116,11 @@ apis:
     https://developer.salesforce.com/docs/atlas.en-us.omni_channel_dev.meta/omni_channel_dev/omnichannel_developer_guide_intro.htm
   baseURL: https://yourInstance.salesforce.com/services/data/v59.0/
   tags:
+  - Agent Presence
+  - Omnichannel
+  - Routing
+  - Work Distribution
+  tags_raw:
   - Agent Presence
   - Omni-Channel
   - Routing
@@ -172,6 +187,11 @@ apis:
   baseURL: https://yourInstance.salesforce.com/services/data/v59.0/
   tags:
   - Agentforce
+  - Artificial Intelligence
+  - Automation
+  - Service Agent
+  tags_raw:
+  - Agentforce
   - AI
   - Automation
   - Service Agent
@@ -188,6 +208,8 @@ apis:
   humanURL: https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/
   baseURL: https://yourInstance.salesforce.com/services/data/v59.0/
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -323,6 +345,8 @@ apis:
   humanURL: https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/
   baseURL: https://yourInstance.salesforce.com/services/data/v59.0/
   tags:
+  - Message
+  tags_raw:
   - Messages
   properties:
   - type: OpenAPI
