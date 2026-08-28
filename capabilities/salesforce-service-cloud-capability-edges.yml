@@ -1,0 +1,63 @@
+slug: salesforce-service-cloud
+provider: Salesforce Service Cloud
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: Cases
+  spec_file: salesforce-service-cloud-cases-api-openapi.yml
+  capability_id: BC-430.10
+  capability_id_l1: BC-430
+  capability_name: Customer Inquiry Management
+  confidence: 0.85
+  evidence: 'POST /sobjects/Case createCase — Create a new case; schemas: Case, CaseInput'
+  reason: Full CRUD lifecycle over Service Cloud support Cases — the core customer service ticket object
+    for inbound inquiries, routing and resolution. Sub-capability could also be complaints handling, hence
+    not 0.95.
+- tag: Messages
+  spec_file: salesforce-service-cloud-messages-api-openapi.yml
+  capability_id: BC-430.10
+  capability_id_l1: BC-430
+  capability_name: Customer Inquiry Management
+  confidence: 0.8
+  evidence: POST /Chasitor/ChatMessage  sendChatMessage  Send a chat message
+  reason: Live chat message exchange between support agents and visitors — inbound customer contact handling
+    in a service platform.
+- tag: Availability
+  spec_file: salesforce-service-cloud-availability-api-openapi.yml
+  capability_id: BC-430.30
+  capability_id_l1: BC-430
+  capability_name: Contact Centre Operations Management
+  confidence: 0.7
+  evidence: GET /Visitor/Availability checkAvailability — Check agent availability
+  reason: Checks whether live-chat support agents are available to serve visitors, part of the Salesforce
+    Chat REST surface for contact-centre/live-chat operations. Maps to contact centre operations, though
+    it is a single narrow endpoint.
+- tag: Contacts
+  spec_file: salesforce-service-cloud-contacts-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.7
+  evidence: POST /sobjects/Contact createContact  Salesforce Service Cloud Create a new contact
+  reason: Operations create and describe Contact records — customer master data records in CRM. Maps to
+    Customer Data Management, though thin (2 ops, one metadata).
+- tag: Sessions
+  spec_file: salesforce-service-cloud-sessions-api-openapi.yml
+  capability_id: BC-430.10
+  capability_id_l1: BC-430
+  capability_name: Customer Inquiry Management
+  confidence: 0.7
+  evidence: POST /Chasitor/ChasitorInit  initiateChatSession ... POST /Chasitor/ChatEnd  endChat
+  reason: Initiating and ending live chat sessions between visitors and support agents is contact handling
+    in a customer service platform, though session ID retrieval is partly technical.

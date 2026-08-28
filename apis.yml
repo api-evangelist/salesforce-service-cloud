@@ -2,6 +2,18 @@ name: Salesforce Service Cloud
 description: Salesforce Service Cloud is a customer service and support platform that
   helps businesses deliver smarter, faster, and more personalized customer service
   across all channels.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: enterprise
   onboarding: self-serve
@@ -477,6 +489,9 @@ apis:
     url: >-
       https://developer.salesforce.com/docs/atlas.en-us.live_agent_rest.meta/live_agent_rest/live_agent_rest_API_requests.htm
 common:
+- type: CapabilityMap
+  url: capabilities/salesforce-service-cloud-capability-edges.yml
+  name: Salesforce Service Cloud Business Capability Map
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/salesforce-service-cloud/overview
 - type: AgenticAccess
