@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Salesforce Service Cloud Salesforce Chat REST Accounts Messages API
+  title: Salesforce Service Cloud Salesforce Chat REST Messages API
   description: REST API for managing live chat sessions between agents and visitors in Salesforce Service Cloud. Enables initiating chat sessions, sending and receiving messages, and monitoring chat activity.
   version: '59.0'
   contact:
@@ -58,22 +58,23 @@ paths:
         '403':
           description: Invalid session or chat ended
 components:
-  parameters:
-    SessionKey:
-      name: X-LIVEAGENT-SESSION-KEY
-      in: header
-      required: true
-      description: The session key from the SessionId response
-      schema:
-        type: string
-    AffinityToken:
-      name: X-LIVEAGENT-AFFINITY
-      in: header
-      required: true
-      description: Affinity token for session routing
-      schema:
-        type: string
   schemas:
+    ChatMessageRequest:
+      type: object
+      required:
+      - text
+      properties:
+        text:
+          type: string
+          description: Message text to send
+    MessagesResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatMessage'
+          description: Array of chat messages and events
     ChatMessage:
       type: object
       properties:
@@ -96,22 +97,21 @@ components:
             name:
               type: string
               description: Sender name
-    ChatMessageRequest:
-      type: object
-      required:
-      - text
-      properties:
-        text:
-          type: string
-          description: Message text to send
-    MessagesResponse:
-      type: object
-      properties:
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChatMessage'
-          description: Array of chat messages and events
+  parameters:
+    SessionKey:
+      name: X-LIVEAGENT-SESSION-KEY
+      in: header
+      required: true
+      description: The session key from the SessionId response
+      schema:
+        type: string
+    AffinityToken:
+      name: X-LIVEAGENT-AFFINITY
+      in: header
+      required: true
+      description: Affinity token for session routing
+      schema:
+        type: string
   securitySchemes:
     apiKey:
       type: apiKey

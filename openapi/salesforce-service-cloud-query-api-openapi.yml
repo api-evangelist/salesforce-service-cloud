@@ -1,21 +1,22 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Salesforce Service Cloud Salesforce Chat REST Accounts Query API
-  description: REST API for managing live chat sessions between agents and visitors in Salesforce Service Cloud. Enables initiating chat sessions, sending and receiving messages, and monitoring chat activity.
+  title: Salesforce Service Cloud REST Query API
+  description: RESTful API for managing customer service operations in Salesforce Service Cloud, including cases, contacts, accounts, knowledge articles, and other service-related objects via the sObject framework.
   version: '59.0'
   contact:
     name: Salesforce Developer Support
     url: https://developer.salesforce.com/support
   termsOfService: https://www.salesforce.com/company/legal/agreements/
 servers:
-- url: https://{hostname}/chat/rest
-  description: Chat REST API Endpoint
+- url: https://{instance}.salesforce.com/services/data/v59.0
+  description: Salesforce Production Instance
   variables:
-    hostname:
-      default: d.la1-c1-ia4.salesforceliveagent.com
-      description: Your Live Agent endpoint hostname
+    instance:
+      default: yourInstance
+      description: Your Salesforce instance identifier
 security:
-- apiKey: []
+- oauth2: []
+- bearerAuth: []
 tags:
 - name: Query
   description: SOQL query operations
@@ -61,11 +62,19 @@ components:
             type: object
           description: Array of matching records
   securitySchemes:
-    apiKey:
-      type: apiKey
-      in: header
-      name: X-LIVEAGENT-API-VERSION
-      description: Live Agent API version header
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.salesforce.com/services/oauth2/authorize
+          tokenUrl: https://login.salesforce.com/services/oauth2/token
+          scopes:
+            api: Access Salesforce REST API
+            full: Full access
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: OAuth2
 externalDocs:
-  description: Chat REST API Developer Guide
-  url: https://developer.salesforce.com/docs/atlas.en-us.live_agent_rest.meta/live_agent_rest/
+  description: REST API Developer Guide
+  url: https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/
