@@ -105,7 +105,7 @@ apis:
   tags:
   - Artificial Intelligence
   - Automation
-  - Chatbot
+  - Chatbots
   - Einstein
   tags_raw:
   - AI
@@ -129,7 +129,7 @@ apis:
   baseURL: https://yourInstance.salesforce.com/services/data/v59.0/
   tags:
   - Agent Presence
-  - Omni-Channel
+  - Omnichannel
   - Routing
   - Work Distribution
   tags_raw:
