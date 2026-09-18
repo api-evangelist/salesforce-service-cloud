@@ -58,15 +58,22 @@ paths:
         '403':
           description: Invalid session or chat ended
 components:
+  parameters:
+    SessionKey:
+      name: X-LIVEAGENT-SESSION-KEY
+      in: header
+      required: true
+      description: The session key from the SessionId response
+      schema:
+        type: string
+    AffinityToken:
+      name: X-LIVEAGENT-AFFINITY
+      in: header
+      required: true
+      description: Affinity token for session routing
+      schema:
+        type: string
   schemas:
-    ChatMessageRequest:
-      type: object
-      required:
-      - text
-      properties:
-        text:
-          type: string
-          description: Message text to send
     MessagesResponse:
       type: object
       properties:
@@ -75,6 +82,14 @@ components:
           items:
             $ref: '#/components/schemas/ChatMessage'
           description: Array of chat messages and events
+    ChatMessageRequest:
+      type: object
+      required:
+      - text
+      properties:
+        text:
+          type: string
+          description: Message text to send
     ChatMessage:
       type: object
       properties:
@@ -97,21 +112,6 @@ components:
             name:
               type: string
               description: Sender name
-  parameters:
-    SessionKey:
-      name: X-LIVEAGENT-SESSION-KEY
-      in: header
-      required: true
-      description: The session key from the SessionId response
-      schema:
-        type: string
-    AffinityToken:
-      name: X-LIVEAGENT-AFFINITY
-      in: header
-      required: true
-      description: Affinity token for session routing
-      schema:
-        type: string
   securitySchemes:
     apiKey:
       type: apiKey

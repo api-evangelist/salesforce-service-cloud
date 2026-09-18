@@ -72,6 +72,21 @@ paths:
           description: Invalid session
 components:
   schemas:
+    SessionIdResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique session ID
+        key:
+          type: string
+          description: The session key for subsequent requests
+        affinityToken:
+          type: string
+          description: Token for maintaining session affinity
+        clientPollTimeout:
+          type: integer
+          description: Recommended polling interval in seconds
     ChasitorInit:
       type: object
       required:
@@ -101,21 +116,6 @@ components:
           items:
             type: object
           description: Pre-chat form field values
-    SessionIdResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique session ID
-        key:
-          type: string
-          description: The session key for subsequent requests
-        affinityToken:
-          type: string
-          description: Token for maintaining session affinity
-        clientPollTimeout:
-          type: integer
-          description: Recommended polling interval in seconds
   parameters:
     AffinityToken:
       name: X-LIVEAGENT-AFFINITY

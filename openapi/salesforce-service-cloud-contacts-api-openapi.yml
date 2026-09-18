@@ -56,6 +56,20 @@ paths:
                 $ref: '#/components/schemas/CreateResponse'
 components:
   schemas:
+    CreateResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the created record
+        success:
+          type: boolean
+          description: Whether the operation succeeded
+        errors:
+          type: array
+          items:
+            type: object
+          description: List of errors if any
     ContactInput:
       type: object
       properties:
@@ -77,20 +91,6 @@ components:
           description: ID of the associated account
       required:
       - LastName
-    CreateResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: ID of the created record
-        success:
-          type: boolean
-          description: Whether the operation succeeded
-        errors:
-          type: array
-          items:
-            type: object
-          description: List of errors if any
     SObjectBasicInfo:
       type: object
       properties:

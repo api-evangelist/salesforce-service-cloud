@@ -114,20 +114,17 @@ paths:
           description: Case not found
 components:
   schemas:
-    CreateResponse:
+    SObjectBasicInfo:
       type: object
       properties:
-        id:
-          type: string
-          description: ID of the created record
-        success:
-          type: boolean
-          description: Whether the operation succeeded
-        errors:
+        objectDescribe:
+          type: object
+          description: Object metadata
+        recentItems:
           type: array
           items:
             type: object
-          description: List of errors if any
+          description: Recently created or updated records
     Case:
       type: object
       properties:
@@ -219,17 +216,20 @@ components:
         AccountId:
           type: string
           description: ID of the associated account
-    SObjectBasicInfo:
+    CreateResponse:
       type: object
       properties:
-        objectDescribe:
-          type: object
-          description: Object metadata
-        recentItems:
+        id:
+          type: string
+          description: ID of the created record
+        success:
+          type: boolean
+          description: Whether the operation succeeded
+        errors:
           type: array
           items:
             type: object
-          description: Recently created or updated records
+          description: List of errors if any
   parameters:
     CaseId:
       name: caseId
